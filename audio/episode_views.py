@@ -13,7 +13,7 @@ def edit_episode(request, pk, title_slug):
         form = EpisodeForm(request.POST, request.FILES, instance=episode)
         if form.is_valid():
             form.save()
-            return redirect('audio:home')
+            return redirect('audio:episode', pk=pk, slug=title_slug)
     else:
         form = EpisodeForm(instance=episode)
     return render(
@@ -40,7 +40,7 @@ def new_episode(request, feed_pk, feed_title_slug):
             episode.user = request.user
             episode.feed = feed
             episode.save()
-            return redirect('audio:new_feed')
+            return redirect('audio:feed', pk=feed_pk, slug=feed_title_slug)
     else:
         form = EpisodeForm()
     return render(
