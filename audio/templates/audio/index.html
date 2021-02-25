@@ -1,4 +1,13 @@
 {% extends "base.html" %}
+{% block morehead %}
+  {% if is_episode %}
+    <meta property="og:title" content="{{ ogtitle }}" />
+    <meta property="og:url" content="{{ ogurl }}" />
+    <meta property="og:audio" content="{{ MP3_URL }}{{ ogmp3 }}" />
+    <meta property="og:audio:secure" content="{{ MP3_URL }}{{ ogmp3 }}" />
+    <meta property="og:audio:type" content="audio/mpeg" />
+  {% endif %}
+{% endblock morehead %}
 
 {% block content %}
   {% include "base_navbar.html" %}

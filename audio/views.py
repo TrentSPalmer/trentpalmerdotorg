@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
+from django.contrib.sites.shortcuts import get_current_site
 from .forms import FeedForm
 from .models import Feed, Episode
 from tp.settings import IMAGES_URL, MP3_URL
@@ -25,11 +26,14 @@ def feed(request, pk, slug):
 
 def episode(request, pk, slug):
     episode = Episode.objects.get(id=pk)
+    ogurl = reverse('audio:episode', kwargs={'pk': pk, 'slug': slug})
+    og_url = f'{get_current_site(request)}{ogurl}'
     return render(
         request, 'audio/index.html',
         {
-            'episodes': (episode, ), 'IMAGES_URL': IMAGES_URL,
-            'MP3_URL': MP3_URL, 'title': episode.title, 'heading': episode.title
+            'episodes': (episode, ), 'IMAGES_URL': IMAGES_URL, 'is_episode': True,
+            'MP3_URL': MP3_URL, 'title': episode.title, 'heading': episode.title,
+            'ogtitle': episode.title, 'ogurl': og_url, 'ogmp3': episode.mp3
         })
 
 
