@@ -50,7 +50,7 @@ def new_feed(request):
             feed = form.save(commit=False)
             feed.user = request.user
             feed.save()
-            return redirect('audio:new_feed')
+            return redirect('audio:home')
     else:
         form = FeedForm()
     return render(request, 'base_form.html', {'form': form})
