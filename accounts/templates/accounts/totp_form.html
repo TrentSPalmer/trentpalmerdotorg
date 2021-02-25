@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  {% include "base_navbar.html" %}
+  {% include "base_heading.html" %}
+  <div class="containe mt-4">
+    <div class="d-flex justify-content-center">
+      <style> svg { transform: scale(1.5); } </style>
+      {{ qr | safe }}
+    </div>
+  </div>
+
+  <div class="container">
+    <form method="POST" class="d-flex flex-column col-10 offset-1 col-md-2 offset-md-5 mt-5 align-items-center">
+      {% csrf_token %}
+      {{ form | crispy }}
+      <div class="text-center">
+        <input type="submit" class="btn btn-dark btn-lg mt-5" value="Submit">
+      </div>
+    </form>
+  </div>
+
+{% endblock %}

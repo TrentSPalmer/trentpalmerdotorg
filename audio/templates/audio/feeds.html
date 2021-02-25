@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% include "base_navbar.html" %}
+  {% include "base_heading.html" %}
+
+  <div id="main" class="mx-0 px-0">
+    <div class="row w-100 mx-0">
+      <div class="col-0 col-sm-3">
+      </div>
+      <div class="col-12 col-sm-6 px-0 mx-0">
+      {% for i in feeds %}
+        <div class="card mx-1 mb-3">
+          <h3 class="text-center mt-2">
+            {{ i.title }}
+          </h3>
+          <div class="container w-100 mb-2">
+            <div class="row">
+              <div class="col-3 d-flex flex-column justify-content-center">
+                <img src="{{ IMAGES_URL }}{{ i.image }}">
+              </div>
+              <div class="col-9 d-flex flex-row justify-content-center">
+                <div class="d-flex flex-column justify-content-center">
+                  <p>{{ i.created_on }}</p>
+                  <p><a href="{% url 'audio:feed' pk=i.pk slug=i.slug %}">{{ i.title }}</a></p>
+                  <p><a href="{% url 'audio:rss' slug=i.slug %}">RSS</a></p>
+                  <p>{{ i.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% if user.is_authenticated %}
+            {% if user == i.user %}
+              <div class="container w-100 d-flex justify-content-around my-1">
+                <div>
+                  <a href="{% url 'audio:edit_feed' pk=i.pk title_slug=i.slug %}">Edit Feed?</a>
+                </div>
+                <div>
+                  <a href="{% url 'audio:new_episode' feed_pk=i.pk feed_title_slug=i.slug %}">New Episode?</a>
+                </div>
+              </div>
+            {% endif %}
+          {% endif %}
+
+        </div>
+      {% endfor %}
+      </div>
+      <div class="col-0 col-sm-3">
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

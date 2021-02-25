@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% include "base_navbar.html" %}
+  {% include "base_heading.html" %}
+  <div id="main" class="mx-0 px-0">
+    <div class="row w-100 mx-0">
+      <div class="col-0 col-sm-3">
+      </div>
+      <div class="col-12 col-sm-6 px-0 mx-0">
+        {% for j in episodes %}
+          <div class="card mx-1 mb-3">
+            <h3 class="text-center mt-2">
+              {{ j.episode_number }}. {{ j.title }}
+            </h3>
+            <div class="container w-100 mb-2">
+              <div class="row">
+                <div class="col-3 d-flex flex-column justify-content-center">
+                  <img src="{{ IMAGES_URL }}{{ j.image }}">
+                </div>
+                <div class="col-9 d-flex flex-row justify-content-center">
+                  <div class="d-flex flex-column justify-content-center">
+                    <p>{{ j.pub_date }}</p>
+                    <p><a href="{% url 'audio:episode' pk=j.pk slug=j.slug %}">{{ j.title }}</a></p>
+                    <p><a href="{% url 'audio:rss' slug=j.feed.slug %}">RSS</a></p>
+                    <p>{{ j.description }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container w-100 mb-2 text-center">
+              <audio controls class="btn btn-dark w-100">
+                <source src="{{ MP3_URL }}{{ j.mp3 }}" type="audio/mpeg">
+                Your browser does not support the audio tag.
+              </audio>
+            </div>
+
+            {% if user.is_authenticated %}
+              {% if user == j.user %}
+              <div class="container w-100 d-flex justify-content-around my-1">
+                <div>
+                  <a href="{% url 'audio:edit_episode' pk=j.pk title_slug=j.slug %}">Edit Episode?</a><br>
+                </div>
+              </div>
+              {% endif %}
+            {% endif %}
+
+          </div>
+        {% endfor %}
+      </div>
+      <div class="col-0 col-sm-3">
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
+
+  {% for j in episodes %}
+      <div class="container text-center">
+        <h3>
+          {{ j.title }}
+        </h3>
+        <a href="{% url 'audio:episode' pk=j.pk slug=j.slug %}">{{ j.title }}</a>
+        <p>
+          {{ j.pub_date }}
+        </p>
+        <p>
+          {{ j.description }}
+        </p>
+        <div class="container w-25 h-25">
+          <img class="w-50 h-50" src="{{ IMAGES_URL }}{{ j.image }}">
+        </div>
+        <a href="{% url 'audio:rss' slug=j.feed.slug %}">RSS</a><br>
+        <audio controls class="btn btn-dark">
+          <source src="{{ MP3_URL }}{{ j.mp3 }}" type="audio/mpeg">
+          Your browser does not support the audio tag.
+        </audio>
+        {% if user.is_authenticated %}
+          {% if user == j.user %}
+            <div class="container w-25 h-25 mt-3">
+              <a href="{% url 'audio:edit_episode' pk=j.pk title_slug=j.slug %}">Edit Episode?</a><br>
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
+  {% endfor %}

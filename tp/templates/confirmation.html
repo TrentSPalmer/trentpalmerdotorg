@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  {% url 'accounts:logout' as logout_url %}
+  {% url 'accounts:disable_totp' as disable_totp_url %}
+
+  {% if request.path == logout_url %}
+    {% firstof 'Logout' as submit %} 
+  {% elif request.path == disable_totp_url %}
+    {% firstof 'OK' as submit %} 
+  {% endif %}
+
+  {% include "base_navbar.html" %}
+  <div style="height: 10vh;"></div>
+  {% include "base_heading.html" %}
+  <div style="height: 30vh;" class="">
+    <div class="h-100 col-sm-12 col-xs-12 d-flex justify-content-center align-content-center row p-0 mx-0">
+      <form method="POST">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-dark btn-lg" value="{{ submit }}">
+      </form>
+    </div>
+  </div>
+{% endblock %}

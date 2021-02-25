@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+
+      {% url 'audio:home' as home_url %}
+      {% url 'accounts:login' as login_url %}
+      {% url 'accounts:logout' as logout_url %}
+      {% url 'accounts:edit_profile' as edit_profile_url %}
+      {% url 'accounts:password_change' as password_change_url %}
+      {% url 'accounts:enable_totp' as enable_totp_url %}
+      {% url 'accounts:disable_totp' as disable_totp_url %}
+      {% url 'audio:new_feed' as new_feed_url %}
+      {% url 'audio:feeds' as feeds_url %}
+
+      {% if request.path == home_url %}
+        Home 
+      {% elif request.path == login_url %}
+        Login?
+      {% elif request.path == logout_url %}
+        Logout?
+      {% elif request.path == edit_profile_url %}
+        Edit Profile?
+      {% elif request.path == password_change_url %}
+        Change Password?
+      {% elif request.path == enable_totp_url %}
+        Enable 2fa?
+      {% elif request.path == disable_totp_url %}
+        Disable 2fa?
+      {% elif request.path == new_feed_url %}
+        New Feed?
+      {% elif request.path == feeds_url %}
+        Feeds 
+      {% endif %}
+
+      {{ title }}
+
+    </title>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_messages %}
+  </head>
+  <body>
+    {% block content %}{% endblock content %}
+    {% bootstrap_javascript jquery='full' %}
+  </body>
+</html>
