@@ -5,7 +5,7 @@ from tp.settings import IMAGES_URL, MP3_URL
 
 
 def home(request):
-    episodes = Episode.objects.all()
+    episodes = Episode.objects.all().order_by('-pub_date')
     return render(
         request,
         'audio/index.html',
@@ -14,7 +14,7 @@ def home(request):
 
 def feed(request, pk, slug):
     feed = Feed.objects.get(id=pk)
-    episodes = feed.episode_set.all()
+    episodes = feed.episode_set.all().order_by('-pub_date')
     return render(
         request, 'audio/index.html',
         {
