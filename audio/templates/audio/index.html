@@ -41,6 +41,9 @@
                 <div>
                   <a href="{% url 'audio:edit_episode' pk=j.pk title_slug=j.slug %}">Edit Episode?</a><br>
                 </div>
+                <div>
+                  <a href="{% url 'audio:new_episode' feed_pk=j.feed.pk feed_title_slug=j.feed.slug %}">New Episode?</a>
+                </div>
               </div>
               {% endif %}
             {% endif %}
