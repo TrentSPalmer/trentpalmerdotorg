@@ -66,6 +66,11 @@
 
           </div>
         {% endfor %}
+        {% if is_episode %}
+          <div class="text-center">
+            More from <a href="{% url 'audio:feed' pk=feed.id slug=feed.slug %}">{{ feed.title }}</a>?
+          </div>
+        {% endif %}
       </div>
       <div class="col-0 col-sm-3">
       </div>
@@ -74,33 +79,3 @@
 
 
 {% endblock %}
-
-  {% for j in episodes %}
-      <div class="container text-center">
-        <h3>
-          {{ j.title }}
-        </h3>
-        <a href="{% url 'audio:episode' pk=j.pk slug=j.slug %}">{{ j.title }}</a>
-        <p>
-          {{ j.pub_date }}
-        </p>
-        <p>
-          {{ j.description }}
-        </p>
-        <div class="container w-25 h-25">
-          <img class="w-50 h-50" src="{{ IMAGES_URL }}{{ j.image }}">
-        </div>
-        <a href="{% url 'audio:rss' slug=j.feed.slug %}">RSS</a><br>
-        <audio controls class="btn btn-dark">
-          <source src="{{ MP3_URL }}{{ j.mp3 }}" type="audio/mpeg">
-          Your browser does not support the audio tag.
-        </audio>
-        {% if user.is_authenticated %}
-          {% if user == j.user %}
-            <div class="container w-25 h-25 mt-3">
-              <a href="{% url 'audio:edit_episode' pk=j.pk title_slug=j.slug %}">Edit Episode?</a><br>
-            </div>
-          {% endif %}
-        {% endif %}
-      </div>
-  {% endfor %}
