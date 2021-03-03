@@ -19,8 +19,9 @@ def feed(request, pk, slug):
     return render(
         request, 'audio/index.html',
         {
-            'episodes': episodes, 'IMAGES_URL': IMAGES_URL,
-            'MP3_URL': MP3_URL, 'title': feed.title, 'heading': feed.title
+            'episodes': episodes, 'IMAGES_URL': IMAGES_URL, 'view': 'feed',
+            'MP3_URL': MP3_URL, 'title': feed.title, 'heading': feed.title,
+            'feed_pk': pk, 'feed_slug': slug,
         })
 
 
@@ -70,7 +71,7 @@ def edit_feed(request, pk, title_slug):
         form = FeedForm(request.POST, request.FILES, instance=feed)
         if form.is_valid():
             feed.save()
-            return redirect('audio:new_feed')
+            return redirect('audio:feed', pk=pk, slug=title_slug)
     else:
         form = FeedForm(instance=feed)
     return render(
