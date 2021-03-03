@@ -1,4 +1,5 @@
 from pathlib import Path
+from .logging_settings import init_logging_settings
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -65,6 +66,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tp.wsgi.application'
 
+LOGGING_XMPP_CONFIG = {
+    'LOGGING_XMPP_SERVER': str(os.getenv('LOGGING_XMPP_SERVER')),
+    'LOGGING_XMPP_SENDER': str(os.getenv('LOGGING_XMPP_SENDER')),
+    'LOGGING_XMPP_PASSWORD': str(os.getenv('LOGGING_XMPP_PASSWORD')),
+    'LOGGING_XMPP_RECIPIENT': str(os.getenv('LOGGING_XMPP_RECIPIENT')),
+    'LOGGING_XMPP_COMMAND': str(os.getenv('LOGGING_XMPP_COMMAND')),
+    'LOGGING_XMPP_USE_TLS': str(os.getenv('LOGGING_XMPP_USE_TLS'))
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -139,3 +148,4 @@ IMAGES_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_IMAGES_LOCATION}/'
 IMAGES_FILE_STORAGE = 'tp.storage_backends.PublicImageStorage'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+LOGGING = init_logging_settings()
