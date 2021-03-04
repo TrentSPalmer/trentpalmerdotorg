@@ -24,6 +24,7 @@
             </div>
           {% endif %}
         {% endif %}
+
         {% for j in episodes %}
           <div class="card mx-1 mb-3">
             <h3 class="text-center mt-2">
@@ -34,17 +35,17 @@
                 <div class="col-3 d-flex flex-column justify-content-center">
                   <img src="{{ IMAGES_URL }}{{ j.image }}">
                 </div>
-                <div class="col-9 d-flex flex-row justify-content-center">
-                  <div class="d-flex flex-column justify-content-center">
-                    <p>{{ j.pub_date }}</p>
-                    <p><a href="{% url 'audio:episode' pk=j.pk slug=j.slug %}">{{ j.title }}</a></p>
+                <div class="col-9 d-flex flex-column justify-content-center">
+                    <p class="text-center mb-2 mt-3">{{ j.pub_date }}</p>
+                  <div class="d-flex flex-row justify-content-around mt-3">
+                    <p><a href="{% url 'audio:episode' pk=j.pk slug=j.slug %}">Link</a></p>
                     <p><a href="{% url 'audio:rss' slug=j.feed.slug %}">RSS</a></p>
-                    <p>{{ j.description }}</p>
                   </div>
                 </div>
               </div>
             </div>
             <div class="container w-100 mb-2 text-center">
+              <p class="text-justify">{{ j.description }}</p>
               <audio controls class="btn btn-dark w-100">
                 <source src="{{ MP3_URL }}{{ j.mp3 }}" type="audio/mpeg">
                 Your browser does not support the audio tag.

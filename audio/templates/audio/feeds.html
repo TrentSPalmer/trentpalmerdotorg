@@ -9,46 +9,44 @@
       <div class="col-0 col-sm-3">
       </div>
       <div class="col-12 col-sm-6 px-0 mx-0">
-      {% for i in feeds %}
-        <div class="card mx-1 mb-3">
-          <h3 class="text-center mt-2">
-            {{ i.title }}
-          </h3>
-          <div class="container w-100 mb-2">
-            <div class="row">
-              <div class="col-3 d-flex flex-column justify-content-center">
-                <img src="{{ IMAGES_URL }}{{ i.image }}">
-              </div>
-              <div class="col-9 d-flex flex-row justify-content-center">
-                <div class="d-flex flex-column justify-content-center">
-                  <p>{{ i.created_on }}</p>
-                  <p><a href="{% url 'audio:feed' pk=i.pk slug=i.slug %}">{{ i.title }}</a></p>
-                  <p><a href="{% url 'audio:rss' slug=i.slug %}">RSS</a></p>
-                  <p>{{ i.description }}</p>
+        {% for i in feeds %}
+          <div class="card mx-1 mb-3">
+            <h3 class="text-center mt-2">
+              {{ i.title }}
+            </h3>
+            <div class="container w-100 mb-2">
+              <div class="row">
+                <div class="col-3 d-flex flex-column justify-content-center">
+                  <img src="{{ IMAGES_URL }}{{ i.image }}">
+                </div>
+                <div class="col-9 d-flex flex-column justify-content-center">
+                    <p class="text-center mb-2 mt-3">{{ i.created_on }}</p>
+                    <div class="d-flex flex-row justify-content-around mt-3">
+                      <p><a href="{% url 'audio:feed' pk=i.pk slug=i.slug %}">Items</a></p>
+                      <p><a href="{% url 'audio:rss' slug=i.slug %}">RSS</a></p>
+                    </div>
                 </div>
               </div>
+                    <p class="text-justify mt-2 mb-0">{{ i.description }}</p>
             </div>
           </div>
 
-          {% if user.is_authenticated %}
-            {% if user == i.user %}
-              <div class="container w-100 d-flex justify-content-around my-1">
-                <div>
-                  <a href="{% url 'audio:edit_feed' pk=i.pk title_slug=i.slug %}">Edit Feed?</a>
+            {% if user.is_authenticated %}
+              {% if user == i.user %}
+                <div class="container w-100 d-flex justify-content-around my-1">
+                  <div>
+                    <a href="{% url 'audio:edit_feed' pk=i.pk title_slug=i.slug %}">Edit Feed?</a>
+                  </div>
+                  <div>
+                    <a href="{% url 'audio:new_episode' feed_pk=i.pk feed_title_slug=i.slug %}">New Episode?</a>
+                  </div>
                 </div>
-                <div>
-                  <a href="{% url 'audio:new_episode' feed_pk=i.pk feed_title_slug=i.slug %}">New Episode?</a>
-                </div>
-              </div>
+              {% endif %}
             {% endif %}
-          {% endif %}
-
-        </div>
-      {% endfor %}
+        {% endfor %}
       </div>
       <div class="col-0 col-sm-3">
       </div>
     </div>
-  </div>
 
 {% endblock %}
