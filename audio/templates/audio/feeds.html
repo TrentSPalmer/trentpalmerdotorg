@@ -19,11 +19,11 @@
                 <div class="col-3 d-flex flex-column justify-content-center">
                   <img src="{{ IMAGES_URL }}{{ i.image }}">
                 </div>
-                <div class="col-9 d-flex flex-column justify-content-center">
+                <div class="col-9 d-flex flex-column justify-content-around">
                     <p class="text-center mb-2 mt-3">{{ i.created_on }}</p>
-                    <div class="d-flex flex-row justify-content-around mt-3">
-                      <p><a href="{% url 'audio:feed' pk=i.pk slug=i.slug %}">Items</a></p>
-                      <p><a href="{% url 'audio:rss' slug=i.slug %}">RSS</a></p>
+                    <div class="d-flex flex-row justify-content-around">
+                      <p><a type="button" class="btn btn-dark" href="{% url 'audio:feed' pk=i.pk slug=i.slug %}">Items</a></p>
+                      <p><a type="button" class="btn btn-dark" href="{% url 'audio:rss' slug=i.slug %}">RSS</a></p>
                     </div>
                 </div>
               </div>

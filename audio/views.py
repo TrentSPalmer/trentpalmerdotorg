@@ -11,7 +11,9 @@ def home(request):
     return render(
         request,
         'audio/index.html',
-        {'episodes': episodes, 'IMAGES_URL': IMAGES_URL, 'MP3_URL': MP3_URL})
+        {
+            'episodes': episodes, 'IMAGES_URL': IMAGES_URL,
+            'MP3_URL': MP3_URL, 'add_feed_link': True})
 
 
 def feed(request, pk, slug):
