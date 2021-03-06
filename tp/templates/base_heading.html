@@ -9,6 +9,9 @@
       {% url 'audio:new_feed' as new_feed_url %}
       {% url 'audio:feeds' as feeds_url %}
       {% url 'audio:home' as home_url %}
+      {% url 'accounts:password_reset' as password_reset_url %}
+      {% url 'accounts:password_reset_done' as password_reset_done_url %}
+      {% url 'accounts:password_reset_complete' as password_reset_complete_url %}
 
       {% if request.path == login_url %}
         Login?
@@ -26,6 +29,12 @@
         Feeds
       {% elif request.path == home_url %}
         Home
+      {% elif request.path == password_reset_url %}
+        Reset Password?
+      {% elif request.path == password_reset_done_url %}
+        Password Reset Sent 
+      {% elif request.path == password_reset_complete_url %}
+        Password Reset Complete
       {% endif %}
       
       {{ heading }}

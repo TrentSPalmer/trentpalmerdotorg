@@ -7,6 +7,7 @@
   {% url 'accounts:edit_profile' as edit_profile_url %}
   {% url 'accounts:password_change' as password_change_url %}
   {% url 'audio:new_feed' as new_feed_url %}
+  {% url 'accounts:password_reset' as password_reset_url %}
 
   {% if request.path == login_url %}
     {% firstof 'Login' as submit %} 
@@ -16,6 +17,8 @@
     {% firstof 'Update' as submit %} 
   {% elif request.path == new_feed_url %}
     {% firstof 'Submit' as submit %} 
+  {% elif request.path == password_reset_url %}
+    {% firstof 'Reset Password' as submit %} 
   {% endif %}
 
   {% include "base_navbar.html" %}
@@ -48,6 +51,9 @@
               <a type="button" class="btn btn-lg btn-dark" href="{% url 'accounts:password_change' %}">Change Password</a>
           </div>
         </div>
+      {% endif %}
+      {% if request.path == login_url %}
+        <p>Forgot Password? <a href="{% url 'accounts:password_reset' %}">Reset Password</a></p>
       {% endif %}
     </div>
   </div>
