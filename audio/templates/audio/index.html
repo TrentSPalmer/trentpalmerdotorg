@@ -19,8 +19,9 @@
       <div class="col-12 col-sm-6 px-0 mx-0">
         {% if user.is_authenticated %}
           {% if view == 'feed' %}
-            <div class="text-center mb-3">
+            <div class="mb-3 d-flex justify-content-around">
               <a href="{% url 'audio:edit_feed' pk=feed_pk title_slug=feed_slug %}">Edit Feed?</a>
+              <a href="{% url 'audio:new_episode' feed_pk=feed_pk feed_title_slug=feed_slug %}">New Episode?</a>
             </div>
           {% endif %}
         {% endif %}
@@ -61,9 +62,11 @@
                 <div>
                   <a href="{% url 'audio:edit_episode' pk=j.pk title_slug=j.slug %}">Edit Episode?</a><br>
                 </div>
+                {% if view != 'feed' %}
                 <div>
                   <a href="{% url 'audio:new_episode' feed_pk=j.feed.pk feed_title_slug=j.feed.slug %}">New Episode?</a>
                 </div>
+                {% endif %}
               </div>
               {% endif %}
             {% endif %}
