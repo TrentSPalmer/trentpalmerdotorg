@@ -1,7 +1,7 @@
-from django.contrib.auth.forms import ValidationError, UsernameField  # , UserCreationForm
+from django.contrib.auth.forms import ValidationError, UsernameField, UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Account
+from .models import Account, EmailWhiteList
 
 
 class EnableTotpForm(forms.ModelForm):
@@ -11,6 +11,37 @@ class EnableTotpForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = ("totp_code", )
+
+
+class OurUserCreationForm(UserCreationForm):
+    email = forms.EmailField(
+        required=True,
+        label='Email',
+        max_length=254,
+        widget=forms.EmailInput(attrs={'autocomplete': 'email'})
+    )
+
+    class Meta:
+        model = User
+        fields = ("username", "email", "password1", "password2")
+
+    def save(self, commit=True):
+        user = super(OurUserCreationForm, self).save(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+        return user
+
+    def clean(self):
+        email = self.cleaned_data.get('email')
+        if not EmailWhiteList.objects.filter(email=email).exists():
+            raise ValidationError("Email Not Authorized, try another.")
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("An account already exists with this email address.")
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username).exists():
+            raise ValidationError("Try a different username, that one already exists.")
+        return self.cleaned_data
 
 
 class EditProfileForm(forms.Form):

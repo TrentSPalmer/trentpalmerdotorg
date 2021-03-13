@@ -14,6 +14,7 @@
       {% url 'accounts:disable_totp' as disable_totp_url %}
       {% url 'audio:new_feed' as new_feed_url %}
       {% url 'audio:feeds' as feeds_url %}
+      {% url 'accounts:register' as register_url %}
 
       {% if request.path == home_url %}
         Home 
@@ -33,6 +34,8 @@
         New Feed?
       {% elif request.path == feeds_url %}
         Feeds 
+      {% elif request.path == register_url %}
+        Register
       {% endif %}
 
       {{ title }}

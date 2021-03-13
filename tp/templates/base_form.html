@@ -8,6 +8,7 @@
   {% url 'accounts:password_change' as password_change_url %}
   {% url 'audio:new_feed' as new_feed_url %}
   {% url 'accounts:password_reset' as password_reset_url %}
+  {% url 'accounts:register' as register_url %}
 
   {% if request.path == login_url %}
     {% firstof 'Login' as submit %} 
@@ -19,6 +20,8 @@
     {% firstof 'Submit' as submit %} 
   {% elif request.path == password_reset_url %}
     {% firstof 'Reset Password' as submit %} 
+  {% elif request.path == register_url %}
+    {% firstof 'Register' as submit %}
   {% endif %}
 
   {% include "base_navbar.html" %}
@@ -59,6 +62,7 @@
       {% endif %}
       {% if request.path == login_url %}
         <p>Forgot Password? <a href="{% url 'accounts:password_reset' %}">Reset Password</a></p>
+        <p>Need an account? <a href="{% url 'accounts:register' %}">Register</a></p>
       {% endif %}
     </div>
   </div>

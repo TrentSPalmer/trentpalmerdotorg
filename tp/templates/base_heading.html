@@ -12,6 +12,7 @@
       {% url 'accounts:password_reset' as password_reset_url %}
       {% url 'accounts:password_reset_done' as password_reset_done_url %}
       {% url 'accounts:password_reset_complete' as password_reset_complete_url %}
+      {% url 'accounts:register' as register_url %}
 
       {% if request.path == login_url %}
         Login?
@@ -35,6 +36,8 @@
         Password Reset Sent 
       {% elif request.path == password_reset_complete_url %}
         Password Reset Complete
+      {% elif request.path == register_url %}
+        Register?
       {% endif %}
       
       {{ heading }}
