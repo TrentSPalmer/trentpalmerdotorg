@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  {% include "base_navbar.html" %}
+  <div style="height: 10vh;"></div>
+  {% include "base_heading.html" %}
+  <div style="height: 30vh;" class="">
+    <h4 class="text-center mb-0 mt-5">Delete {{ feed.title }}?</h4>
+    <div class="h-100 col-sm-12 col-xs-12 d-flex justify-content-center align-content-center row p-0 mx-0">
+      <form method="POST">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-dark btn-lg mb-4" value="Delete"><br>
+        <a type="button" class="btn btn-lg btn-dark mt-3" href="{% url 'audio:feeds' %}">Cancel</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

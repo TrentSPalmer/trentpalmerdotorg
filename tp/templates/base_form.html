@@ -36,8 +36,11 @@
       {% endif %}
         {% csrf_token %}
         {{ form | crispy }}
-        <div class="mt-3">
+        <div class="mt-3 d-flex justify-content-between">
           <input type="submit" class="btn btn-dark btn-lg" value="{{ submit }}">
+          {% if edit_feed %}
+            <a type="button" class="btn btn-lg btn-dark" href="{% url 'audio:confirm_delete_feed' pk=feed_pk %}">Delete Feed?</a>
+          {% endif %}
         </div>
       </form><br>
       {% if request.path == edit_profile_url %}
