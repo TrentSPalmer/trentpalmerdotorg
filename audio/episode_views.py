@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from .forms import EpisodeForm
 from .models import Feed, Episode, rand_slug
 from django.utils.text import slugify
@@ -31,7 +32,25 @@ def edit_episode(request, pk, title_slug):
             'title': 'Edit Episode?',
             'submit': 'save',
             'form_data': 'TRUE',
+            'edit_episode': True,
+            'episode_pk': pk,
         })
+
+
+def confirm_delete_episode(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('audio:home')
+    episode = Episode.objects.get(id=pk)
+    if not episode.user == request.user:
+        return redirect('audio:home')
+    if request.method == 'POST':
+        episode.delete()
+        messages.success(request, f'Episode {episode.title} deleted!', extra_tags='mb-0')
+        return redirect('audio:feed', pk=episode.feed.pk, slug=episode.feed.slug)
+    return render(request, 'audio/delete_episode_confirmation.html', {
+        'title': 'Delete Episode?',
+        'heading': 'Delete Episode?',
+        'episode': episode})
 
 
 def new_episode(request, feed_pk, feed_title_slug):

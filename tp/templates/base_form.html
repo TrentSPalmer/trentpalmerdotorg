@@ -40,6 +40,8 @@
           <input type="submit" class="btn btn-dark btn-lg" value="{{ submit }}">
           {% if edit_feed %}
             <a type="button" class="btn btn-lg btn-dark" href="{% url 'audio:confirm_delete_feed' pk=feed_pk %}">Delete Feed?</a>
+          {% elif edit_episode %}
+            <a type="button" class="btn btn-lg btn-dark" href="{% url 'audio:confirm_delete_episode' pk=episode_pk %}">Delete Episode?</a>
           {% endif %}
         </div>
       </form><br>
