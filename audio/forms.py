@@ -7,7 +7,10 @@ class FeedForm(forms.ModelForm):
     class Meta:
         model = Feed
         fields = [
-            'title', 'author', 'description', 'image'
+            'title', 'author', 'description',
+            'image_title', 'image_attribution', 'image_attribution_url',
+            'original_image_url', 'image_license',
+            'image_license_jurisdiction', 'image'
         ]
 
 
@@ -20,5 +23,6 @@ class EpisodeForm(forms.ModelForm):
     class Meta:
         model = Episode
         fields = [
-            'title', 'author', 'pub_date', 'episode_number', 'description', 'image', 'mp3'
+            'title', 'author', 'pub_date', 'episode_number',
+            'description', 'image', 'mp3'
         ]

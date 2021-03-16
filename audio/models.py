@@ -3,6 +3,7 @@ from tp.models import UUIDAsIDModel
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from tp.storage_backends import PublicImageStorage, PublicMP3Storage
+from .choices import LICENSE_CHOICES
 import string, random
 
 
@@ -27,6 +28,16 @@ class Feed(UUIDAsIDModel):
         storage=PublicImageStorage(),
         upload_to=slugify_file_name,
         null=True, blank=True)
+
+    image_license = models.SmallIntegerField(
+        choices=LICENSE_CHOICES,
+        default=2,
+    )
+    image_title = models.CharField(max_length=255, default='')
+    image_attribution = models.CharField(max_length=255, default='')
+    image_attribution_url = models.URLField(max_length=255, blank=True)
+    original_image_url = models.URLField(max_length=255, default='')
+    image_license_jurisdiction = models.TextField(null=False, default='')
 
     def save(self, *args, **kwargs):
         if not self.slug:
