@@ -24,5 +24,8 @@ class EpisodeForm(forms.ModelForm):
         model = Episode
         fields = [
             'title', 'author', 'pub_date', 'episode_number',
-            'description', 'image', 'mp3'
+            'description', 'mp3',
+            'image_title', 'image_attribution', 'image_attribution_url',
+            'original_image_url', 'image_license',
+            'image_license_jurisdiction', 'image'
         ]
