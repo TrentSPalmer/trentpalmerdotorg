@@ -28,6 +28,17 @@
                 </div>
               </div>
                     <p class="text-justify mt-2 mb-0">{{ i.description }}</p>
+                    <a href="#{{ i.slug }}-attributions" data-toggle="collapse">license/attribution</a>
+                    <div id="{{ i.slug }}-attributions" class="collapse">
+                      Photo <a href="{{ i.original_image_url }}">{{ i.image_title }}</a> by
+                      {% if i.image_attribution_url == '' %}
+                        {{ i.image_attribution }}
+                      {% else %}
+                        <a href="{{ i.image_attribution_url }}">{{ i.image_attribution }}</a>
+                      {% endif %}
+                      is licensed <a href="{{ i.image_license_url }}">{{ i.image_license_name }}</a>
+                      {{ i.image_license_jurisdiction }}.
+                    </div>
             </div>
           </div>
 
