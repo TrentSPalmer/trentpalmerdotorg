@@ -36,7 +36,19 @@
                         <a href="{{ i.image_attribution_url }}">{{ i.image_attribution }}</a>
                       {% endif %}
                       is licensed <a href="{{ i.image_license_url }}">{{ i.image_license_name }}</a>
-                      {{ i.image_license_jurisdiction }}.<hr class="my-1">
+                      {{ i.image_license_jurisdiction }}.
+                      <hr class="my-1">
+                      <a href="{{ i.ebook_url }}">{{ i.ebook_title }}</a> by
+                      <a href="{{ i.author_url }}">{{ i.author }}</a>
+                      is licensed <a href="{{ i.license_url }}">{{ i.license_name }}</a>
+                      {{ i.license_jurisdiction }}.
+                      {% if i.translator != '' %}
+                        Translated by <a href="{{ i.translator_url }}">{{ i.translator }}</a>.
+                      {% endif %}
+                      {% if i.intro_author != '' %}
+                        Intro by <a href="{{ i.intro_author_url }}">{{ i.intro_author }}</a>.
+                      {% endif %}
+                      <hr class="my-1">
                     </div>
                     <p class="text-justify mt-2 mb-0">{{ i.description }}</p>
             </div>

@@ -62,11 +62,11 @@ class Feed(UUIDAsIDModel):
 
     @property
     def license_name(self):
-        return(get_license_info(self.image_license))[0]
+        return(get_license_info(self.license))[0]
 
     @property
     def license_url(self):
-        return(get_license_info(self.image_license))[1]
+        return(get_license_info(self.license))[1]
 
     def save(self, *args, **kwargs):
         if not self.slug:
