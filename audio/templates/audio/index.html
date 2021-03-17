@@ -39,19 +39,18 @@
                 <div class="col-9 d-flex flex-column justify-content-around">
                     <p class="text-center mb-2 mt-3">{{ j.pub_date }}</p>
                   <div class="d-flex flex-row justify-content-around">
-                    <p><a type="button" class="btn btn-dark" href="{% url 'audio:episode' pk=j.pk slug=j.slug %}">Link</a></p>
+                    <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:episode' pk=j.pk slug=j.slug %}">Link</a></p>
                     {% if add_feed_link %}
-                      <p><a type="button" class="btn btn-dark" href="{% url 'audio:feed' pk=j.feed.id slug=j.feed.slug %}">Feed</a></p>
+                      <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:feed' pk=j.feed.id slug=j.feed.slug %}">Feed</a></p>
                     {% endif %}
-                    <p><a type="button" class="btn btn-dark" href="{% url 'audio:rss' slug=j.feed.slug %}">RSS</a></p>
+                    <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:rss' slug=j.feed.slug %}">RSS</a></p>
                   </div>
+                    <a href="#x{{ j.slug }}-attributions" data-toggle="collapse" class="text-center">license/attribution</a>
                 </div>
               </div>
             </div>
             <div class="container w-100 mb-2">
-              <p class="text-justify mb-0">{{ j.description }}</p>
-                    <a href="#x{{ j.slug }}-attributions" data-toggle="collapse">license/attribution</a>
-                    <div id="x{{ j.slug }}-attributions" class="collapse">
+                    <div id="x{{ j.slug }}-attributions" class="collapse text-justify">
                       Photo <a href="{{ j.original_image_url }}">{{ j.image_title }}</a> by
                       {% if j.image_attribution_url == '' %}
                         {{ j.image_attribution }}
@@ -59,8 +58,9 @@
                         <a href="{{ j.image_attribution_url }}">{{ j.image_attribution }}</a>
                       {% endif %}
                       is licensed <a href="{{ j.image_license_url }}">{{ j.image_license_name }}</a>
-                      {{ j.image_license_jurisdiction }}.
+                      {{ j.image_license_jurisdiction }}.<hr class="my-1">
                     </div>
+              <p class="text-justify mb-0">{{ j.description }}</p>
               <audio controls class="btn btn-dark w-100 mt-3">
                 <source src="{{ MP3_URL }}{{ j.mp3 }}" type="audio/mpeg">
                 Your browser does not support the audio tag.

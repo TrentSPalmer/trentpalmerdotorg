@@ -21,15 +21,14 @@
                 </div>
                 <div class="col-9 d-flex flex-column justify-content-around">
                     <p class="text-center mb-2 mt-3">{{ i.created_on }}</p>
-                    <div class="d-flex flex-row justify-content-around">
-                      <p><a type="button" class="btn btn-dark" href="{% url 'audio:feed' pk=i.pk slug=i.slug %}">Items</a></p>
-                      <p><a type="button" class="btn btn-dark" href="{% url 'audio:rss' slug=i.slug %}">RSS</a></p>
+                    <div class="d-flex flex-row justify-content-around align-items-center">
+                      <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:feed' pk=i.pk slug=i.slug %}">Items</a></p>
+                      <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:rss' slug=i.slug %}">RSS</a></p>
                     </div>
+                    <a href="#x{{ i.slug }}-attributions" data-toggle="collapse" class="text-center">license/attribution</a>
                 </div>
               </div>
-                    <p class="text-justify mt-2 mb-0">{{ i.description }}</p>
-                    <a href="#x{{ i.slug }}-attributions" data-toggle="collapse">license/attribution</a>
-                    <div id="x{{ i.slug }}-attributions" class="collapse">
+                    <div id="x{{ i.slug }}-attributions" class="collapse text-justify">
                       Photo <a href="{{ i.original_image_url }}">{{ i.image_title }}</a> by
                       {% if i.image_attribution_url == '' %}
                         {{ i.image_attribution }}
@@ -37,8 +36,9 @@
                         <a href="{{ i.image_attribution_url }}">{{ i.image_attribution }}</a>
                       {% endif %}
                       is licensed <a href="{{ i.image_license_url }}">{{ i.image_license_name }}</a>
-                      {{ i.image_license_jurisdiction }}.
+                      {{ i.image_license_jurisdiction }}.<hr class="my-1">
                     </div>
+                    <p class="text-justify mt-2 mb-0">{{ i.description }}</p>
             </div>
           </div>
 
