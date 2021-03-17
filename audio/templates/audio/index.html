@@ -48,9 +48,20 @@
                 </div>
               </div>
             </div>
-            <div class="container w-100 mb-2 text-center">
-              <p class="text-justify">{{ j.description }}</p>
-              <audio controls class="btn btn-dark w-100">
+            <div class="container w-100 mb-2">
+              <p class="text-justify mb-0">{{ j.description }}</p>
+                    <a href="#{{ j.slug }}-attributions" data-toggle="collapse">license/attribution</a>
+                    <div id="{{ j.slug }}-attributions" class="collapse">
+                      Photo <a href="{{ j.original_image_url }}">{{ j.image_title }}</a> by
+                      {% if j.image_attribution_url == '' %}
+                        {{ j.image_attribution }}
+                      {% else %}
+                        <a href="{{ j.image_attribution_url }}">{{ j.image_attribution }}</a>
+                      {% endif %}
+                      is licensed <a href="{{ j.image_license_url }}">{{ j.image_license_name }}</a>
+                      {{ j.image_license_jurisdiction }}.
+                    </div>
+              <audio controls class="btn btn-dark w-100 mt-3">
                 <source src="{{ MP3_URL }}{{ j.mp3 }}" type="audio/mpeg">
                 Your browser does not support the audio tag.
               </audio>
