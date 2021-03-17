@@ -3,7 +3,7 @@ from tp.models import UUIDAsIDModel
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from tp.storage_backends import PublicImageStorage, PublicMP3Storage
-from .choices import LICENSE_CHOICES, get_image_license_info
+from .choices import LICENSE_CHOICES, get_license_info
 import string, random
 
 
@@ -37,15 +37,36 @@ class Feed(UUIDAsIDModel):
     image_attribution = models.CharField(max_length=255, default='')
     image_attribution_url = models.URLField(max_length=255, blank=True)
     original_image_url = models.URLField(max_length=255, default='')
-    image_license_jurisdiction = models.TextField(null=False, default='')
+    image_license_jurisdiction = models.TextField(null=False, default='(no jurisdiction specified)')
 
     @property
     def image_license_name(self):
-        return(get_image_license_info(self.image_license))[0]
+        return(get_license_info(self.image_license))[0]
 
     @property
     def image_license_url(self):
-        return(get_image_license_info(self.image_license))[1]
+        return(get_license_info(self.image_license))[1]
+
+    author_url = models.URLField(max_length=255, default='')
+    ebook_title = models.CharField(max_length=255, default='')
+    ebook_url = models.URLField(max_length=255, default='')
+    translator = models.CharField(max_length=255, blank=True)
+    translator_url = models.URLField(max_length=255, blank=True)
+    intro_author = models.CharField(max_length=255, blank=True)
+    intro_author_url = models.URLField(max_length=255, blank=True)
+    license_jurisdiction = models.TextField(blank=True, default='(no jurisdiction specified)')
+    license = models.SmallIntegerField(
+        choices=LICENSE_CHOICES,
+        default=1,
+    )
+
+    @property
+    def license_name(self):
+        return(get_license_info(self.image_license))[0]
+
+    @property
+    def license_url(self):
+        return(get_license_info(self.image_license))[1]
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -79,15 +100,15 @@ class Episode(UUIDAsIDModel):
     image_attribution = models.CharField(max_length=255, default='')
     image_attribution_url = models.URLField(max_length=255, blank=True)
     original_image_url = models.URLField(max_length=255, default='')
-    image_license_jurisdiction = models.TextField(null=False, default='')
+    image_license_jurisdiction = models.TextField(null=False, default='(no jurisdiction specified)')
 
     @property
     def image_license_name(self):
-        return(get_image_license_info(self.image_license))[0]
+        return(get_license_info(self.image_license))[0]
 
     @property
     def image_license_url(self):
-        return(get_image_license_info(self.image_license))[1]
+        return(get_license_info(self.image_license))[1]
 
     mp3 = models.FileField(
         storage=PublicMP3Storage(),

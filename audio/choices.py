@@ -8,7 +8,7 @@ LICENSE_CHOICES = [
 ]
 
 
-def get_image_license_info(x):
+def get_license_info(x):
     if x == 1:
         return ('Public Domain', 'https://en.wikipedia.org/wiki/Public_domain')
     if x == 2:
