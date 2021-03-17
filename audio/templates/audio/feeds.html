@@ -28,8 +28,8 @@
                 </div>
               </div>
                     <p class="text-justify mt-2 mb-0">{{ i.description }}</p>
-                    <a href="#{{ i.slug }}-attributions" data-toggle="collapse">license/attribution</a>
-                    <div id="{{ i.slug }}-attributions" class="collapse">
+                    <a href="#x{{ i.slug }}-attributions" data-toggle="collapse">license/attribution</a>
+                    <div id="x{{ i.slug }}-attributions" class="collapse">
                       Photo <a href="{{ i.original_image_url }}">{{ i.image_title }}</a> by
                       {% if i.image_attribution_url == '' %}
                         {{ i.image_attribution }}

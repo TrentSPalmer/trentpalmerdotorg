@@ -50,8 +50,8 @@
             </div>
             <div class="container w-100 mb-2">
               <p class="text-justify mb-0">{{ j.description }}</p>
-                    <a href="#{{ j.slug }}-attributions" data-toggle="collapse">license/attribution</a>
-                    <div id="{{ j.slug }}-attributions" class="collapse">
+                    <a href="#x{{ j.slug }}-attributions" data-toggle="collapse">license/attribution</a>
+                    <div id="x{{ j.slug }}-attributions" class="collapse">
                       Photo <a href="{{ j.original_image_url }}">{{ j.image_title }}</a> by
                       {% if j.image_attribution_url == '' %}
                         {{ j.image_attribution }}
