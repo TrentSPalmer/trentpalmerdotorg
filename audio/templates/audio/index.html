@@ -58,7 +58,19 @@
                         <a href="{{ j.image_attribution_url }}">{{ j.image_attribution }}</a>
                       {% endif %}
                       is licensed <a href="{{ j.image_license_url }}">{{ j.image_license_name }}</a>
-                      {{ j.image_license_jurisdiction }}.<hr class="my-1">
+                      {{ j.image_license_jurisdiction }}.
+                      <hr class="my-1">
+                      <a href="{{ j.feed.ebook_url }}">{{ j.feed.ebook_title }}</a> by
+                      <a href="{{ j.feed.author_url }}">{{ j.feed.author }}</a>
+                      is licensed <a href="{{ j.feed.license_url }}">{{ j.feed.license_name }}</a>
+                      {{ j.feed.license_jurisdiction }}.
+                      {% if j.feed.translator != '' %}
+                        Translated by <a href="{{ j.feed.translator_url }}">{{ j.feed.translator }}</a>.
+                      {% endif %}
+                      {% if j.feed.intro_author != '' %}
+                        Intro by <a href="{{ j.feed.intro_author_url }}">{{ j.feed.intro_author }}</a>.
+                      {% endif %}
+                      <hr class="my-1">
                     </div>
               <p class="text-justify mb-0">{{ j.description }}</p>
               <audio controls class="btn btn-dark w-100 mt-3">
