@@ -5,6 +5,7 @@ from django.utils.feedgenerator import Rss201rev2Feed
 from tp.settings import IMAGES_URL, MP3_URL
 from .models import Feed
 from datetime import datetime
+from .rss_utils import get_rss_item_desc
 
 
 class AudioRssFeedGenerator(Rss201rev2Feed):
@@ -74,6 +75,9 @@ class AudioRssFeed(RSSFeed):
 
     def item_title(self, item):
         return f'{item.episode_number}: {item.title}'
+
+    def item_description(self, item):
+        return get_rss_item_desc(item)
 
     def item_extra_kwargs(self, item):
         x = {}
