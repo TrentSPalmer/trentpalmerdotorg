@@ -35,7 +35,8 @@ def episode(request, pk, slug):
         {
             'episodes': (episode, ), 'IMAGES_URL': IMAGES_URL, 'is_episode': True,
             'MP3_URL': MP3_URL, 'title': episode.title, 'heading': episode.title,
-            'ogtitle': episode.title, 'ogurl': og_url, 'ogmp3': episode.mp3, 'feed': episode.feed
+            'ogtitle': episode.title, 'ogurl': og_url, 'ogmp3': episode.mp3,
+            'feed': episode.feed, 'twitter_image': episode.image,
         })
 
 
