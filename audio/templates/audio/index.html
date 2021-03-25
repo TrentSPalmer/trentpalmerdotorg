@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block morehead %}
   {% if is_episode %}
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:creator" content="@BoringTrent" />
     <meta property="og:title" content="{{ ogtitle }}" />
     <meta property="og:url" content="{{ ogurl }}" />
     <meta property="og:audio" content="{{ MP3_URL }}{{ ogmp3 }}" />
