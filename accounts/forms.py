@@ -8,6 +8,10 @@ class EnableTotpForm(forms.ModelForm):
 
     totp_code = forms.CharField(max_length=6)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['totp_code'].widget.attrs.update({'autofocus': 'autofocus'})
+
     class Meta:
         model = Account
         fields = ("totp_code", )
