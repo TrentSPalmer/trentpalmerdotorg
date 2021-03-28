@@ -2,7 +2,7 @@
 {% block morehead %}
   {% if is_episode %}
     <meta property="twitter:card" content="summary" />
-    <meta property="twitter:creator" content="@BoringTrent" />
+    <meta property="twitter:creator" content="{{ user.account.twitter_handle }}" />
     <meta property="twitter:image" content="{{ IMAGES_URL }}{{ twitter_image }}" />
     <meta property="og:title" content="{{ ogtitle }}" />
     <meta property="og:url" content="{{ ogurl }}" />
