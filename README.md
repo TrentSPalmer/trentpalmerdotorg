@@ -7,7 +7,7 @@ who serializes his audiobooks as [podcasts](https://stardrifter.podbean.com/).
 
 # Listening
 Using a podcast client is strongly encouraged because of the obvious limitations
-of trying to listen in the web browser. Although I do at some point intent to include
+of trying to listen in the web browser. Although I do at some point intend to include
 a [PWA](https://en.wikipedia.org/wiki/Progressive_web_application),
 in the future, probably using either [flutter-web](https://flutter.dev/web)
 or [react](https://reactjs.org/).
@@ -24,7 +24,8 @@ delightful to work with once you get the hang of it.
 I record to [Audacity](https://www.audacityteam.org/) on a refurbished
 [Dell Optiplex 3010](https://www.amazon.com/Dell-3010-Performance-Certified-Refurbished/dp/B07C3H4KSX/0),
 which has an [Ivy Bridge](https://en.wikipedia.org/wiki/Ivy_Bridge_(microarchitecture))
-Core i5 cpu, using a
+Core i5 cpu, running [Manjaro Linux](https://manjaro.org/), which I installed by hand the Arch
+way using pacstrap, with the [Mate Desktop Environment](https://mate-desktop.org/), using a
 [Samson Meteor](https://www.amazon.com/Samson-Meteor-Studio-Condenser-Microphone/dp/B004MF39YS)
 usb condensor microphone.
 
