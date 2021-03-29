@@ -11,13 +11,13 @@
       <div class="col-12 col-sm-6 px-0 mx-0">
         {% for i in feeds %}
           <div class="card mx-1 mb-3">
-            <h3 class="text-center mt-2">
+            <h2 style="font-size: 1.5rem" class="text-center mt-2">
               {{ i.title }}
-            </h3>
+            </h2>
             <div class="container w-100 mb-2">
               <div class="row">
                 <div class="col-3 d-flex flex-column justify-content-center">
-                  <img src="{{ IMAGES_URL }}{{ i.image }}">
+                  <img src="{{ IMAGES_URL }}{{ i.image }}" alt="{{ i.image_title }}">
                 </div>
                 <div class="col-9 d-flex flex-column justify-content-around">
                     <p class="text-center mb-2 mt-3">{{ i.created_on }}</p>
@@ -25,28 +25,28 @@
                       <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:feed' pk=i.pk slug=i.slug %}">Items</a></p>
                       <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:rss' slug=i.slug %}">RSS</a></p>
                     </div>
-                    <a href="#x{{ i.slug }}-attributions" data-toggle="collapse" class="text-center">license/attribution</a>
+                    <a href="#x{{ i.slug }}-attributions" data-toggle="collapse" class="text-center text-dark" style="text-decoration: underline">license/attribution</a>
                 </div>
               </div>
                     <div id="x{{ i.slug }}-attributions" class="collapse text-justify">
-                      Photo <a href="{{ i.original_image_url }}">{{ i.image_title }}</a> by
+                      Photo <a href="{{ i.original_image_url }}" class="text-dark" style="text-decoration: underline">{{ i.image_title }}</a> by
                       {% if i.image_attribution_url == '' %}
                         {{ i.image_attribution }}
                       {% else %}
-                        <a href="{{ i.image_attribution_url }}">{{ i.image_attribution }}</a>
+                        <a href="{{ i.image_attribution_url }}" class="text-dark" style="text-decoration: underline">{{ i.image_attribution }}</a>
                       {% endif %}
-                      is licensed <a href="{{ i.image_license_url }}">{{ i.image_license_name }}</a>
+                      is licensed <a href="{{ i.image_license_url }}" class="text-dark" style="text-decoration: underline">{{ i.image_license_name }}</a>
                       {{ i.image_license_jurisdiction }}.
                       <hr class="my-1">
-                      <a href="{{ i.ebook_url }}">{{ i.ebook_title }}</a> by
-                      <a href="{{ i.author_url }}">{{ i.author }}</a>
-                      is licensed <a href="{{ i.license_url }}">{{ i.license_name }}</a>
+                      <a href="{{ i.ebook_url }}" class="text-dark" style="text-decoration: underline">{{ i.ebook_title }}</a> by
+                      <a href="{{ i.author_url }}" class="text-dark" style="text-decoration: underline">{{ i.author }}</a>
+                      is licensed <a href="{{ i.license_url }}" class="text-dark" style="text-decoration: underline">{{ i.license_name }}</a>
                       {{ i.license_jurisdiction }}.
                       {% if i.translator != '' %}
-                        Translated by <a href="{{ i.translator_url }}">{{ i.translator }}</a>.
+                        Translated by <a href="{{ i.translator_url }}" class="text-dark" style="text-decoration: underline">{{ i.translator }}</a>.
                       {% endif %}
                       {% if i.intro_author != '' %}
-                        Intro by <a href="{{ i.intro_author_url }}">{{ i.intro_author }}</a>.
+                        Intro by <a href="{{ i.intro_author_url }}" class="text-dark" style="text-decoration: underline">{{ i.intro_author }}</a>.
                       {% endif %}
                       <hr class="my-1">
                     </div>
@@ -58,10 +58,10 @@
               {% if user == i.user %}
                 <div class="container w-100 d-flex justify-content-around my-1">
                   <div>
-                    <a href="{% url 'audio:edit_feed' pk=i.pk title_slug=i.slug %}">Edit Feed?</a>
+                    <a href="{% url 'audio:edit_feed' pk=i.pk title_slug=i.slug %}" class="text-dark" style="text-decoration: underline">Edit Feed?</a>
                   </div>
                   <div>
-                    <a href="{% url 'audio:new_episode' feed_pk=i.pk feed_title_slug=i.slug %}">New Episode?</a>
+                    <a href="{% url 'audio:new_episode' feed_pk=i.pk feed_title_slug=i.slug %}" class="text-dark" style="text-decoration: underline">New Episode?</a>
                   </div>
                 </div>
               {% endif %}

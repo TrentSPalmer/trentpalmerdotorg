@@ -61,8 +61,8 @@
         </div>
       {% endif %}
       {% if request.path == login_url %}
-        <p>Forgot Password? <a href="{% url 'accounts:password_reset' %}">Reset Password</a></p>
-        <p>Need an account? <a href="{% url 'accounts:register' %}">Register</a></p>
+        <p>Forgot Password? <a href="{% url 'accounts:password_reset' %}" class="text-dark" style="text-decoration: underline">Reset Password</a></p>
+        <p>Need an account? <a href="{% url 'accounts:register' %}" class="text-dark" style="text-decoration: underline">Register</a></p>
       {% endif %}
     </div>
   </div>

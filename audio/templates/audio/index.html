@@ -23,21 +23,21 @@
         {% if user.is_authenticated %}
           {% if view == 'feed' %}
             <div class="mb-3 d-flex justify-content-around">
-              <a href="{% url 'audio:edit_feed' pk=feed_pk title_slug=feed_slug %}">Edit Feed?</a>
-              <a href="{% url 'audio:new_episode' feed_pk=feed_pk feed_title_slug=feed_slug %}">New Episode?</a>
+              <a href="{% url 'audio:edit_feed' pk=feed_pk title_slug=feed_slug %}" class="text-dark" style="text-decoration: underline">Edit Feed?</a>
+              <a href="{% url 'audio:new_episode' feed_pk=feed_pk feed_title_slug=feed_slug %}" class="text-dark" style="text-decoration: underline">New Episode?</a>
             </div>
           {% endif %}
         {% endif %}
 
         {% for j in episodes %}
           <div class="card mx-1 mb-3">
-            <h3 class="text-center mt-2">
+            <h2 style="font-size: 1.5rem" class="text-center mt-2">
               {{ j.episode_number }}. {{ j.title }}
-            </h3>
+            </h2>
             <div class="container w-100 mb-2">
               <div class="row">
                 <div class="col-3 d-flex flex-column justify-content-center">
-                  <img src="{{ IMAGES_URL }}{{ j.image }}">
+                  <img src="{{ IMAGES_URL }}{{ j.image }}" alt="{{ j.image_title }}">
                 </div>
                 <div class="col-9 d-flex flex-column justify-content-around">
                     <p class="text-center mb-2 mt-3">{{ j.pub_date }}</p>
@@ -48,30 +48,30 @@
                     {% endif %}
                     <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:rss' slug=j.feed.slug %}">RSS</a></p>
                   </div>
-                    <a href="#x{{ j.slug }}-attributions" data-toggle="collapse" class="text-center">license/attribution</a>
+                    <a href="#x{{ j.slug }}-attributions" data-toggle="collapse" class="text-center text-dark" style="text-decoration: underline">license/attribution</a>
                 </div>
               </div>
             </div>
             <div class="container w-100 mb-2">
                     <div id="x{{ j.slug }}-attributions" class="collapse text-justify">
-                      Photo <a href="{{ j.original_image_url }}">{{ j.image_title }}</a> by
+                      Photo <a href="{{ j.original_image_url }}" class="text-dark" style="text-decoration: underline">{{ j.image_title }}</a> by
                       {% if j.image_attribution_url == '' %}
                         {{ j.image_attribution }}
                       {% else %}
-                        <a href="{{ j.image_attribution_url }}">{{ j.image_attribution }}</a>
+                        <a href="{{ j.image_attribution_url }}" class="text-dark" style="text-decoration: underline">{{ j.image_attribution }}</a>
                       {% endif %}
-                      is licensed <a href="{{ j.image_license_url }}">{{ j.image_license_name }}</a>
+                      is licensed <a href="{{ j.image_license_url }}" class="text-dark" style="text-decoration: underline">{{ j.image_license_name }}</a>
                       {{ j.image_license_jurisdiction }}.
                       <hr class="my-1">
-                      <a href="{{ j.feed.ebook_url }}">{{ j.feed.ebook_title }}</a> by
-                      <a href="{{ j.feed.author_url }}">{{ j.feed.author }}</a>
-                      is licensed <a href="{{ j.feed.license_url }}">{{ j.feed.license_name }}</a>
+                      <a href="{{ j.feed.ebook_url }}" class="text-dark" style="text-decoration: underline">{{ j.feed.ebook_title }}</a> by
+                      <a href="{{ j.feed.author_url }}" class="text-dark" style="text-decoration: underline">{{ j.feed.author }}</a>
+                      is licensed <a href="{{ j.feed.license_url }}" class="text-dark" style="text-decoration: underline">{{ j.feed.license_name }}</a>
                       {{ j.feed.license_jurisdiction }}.
                       {% if j.feed.translator != '' %}
-                        Translated by <a href="{{ j.feed.translator_url }}">{{ j.feed.translator }}</a>.
+                        Translated by <a href="{{ j.feed.translator_url }}" class="text-dark" style="text-decoration: underline">{{ j.feed.translator }}</a>.
                       {% endif %}
                       {% if j.feed.intro_author != '' %}
-                        Intro by <a href="{{ j.feed.intro_author_url }}">{{ j.feed.intro_author }}</a>.
+                        Intro by <a href="{{ j.feed.intro_author_url }}" class="text-dark" style="text-decoration: underline">{{ j.feed.intro_author }}</a>.
                       {% endif %}
                       <hr class="my-1">
                     </div>
@@ -86,11 +86,11 @@
               {% if user == j.user %}
               <div class="container w-100 d-flex justify-content-around my-1">
                 <div>
-                  <a href="{% url 'audio:edit_episode' pk=j.pk title_slug=j.slug %}">Edit Episode?</a><br>
+                  <a href="{% url 'audio:edit_episode' pk=j.pk title_slug=j.slug %}" class="text-dark" style="text-decoration: underline">Edit Episode?</a><br>
                 </div>
                 {% if view != 'feed' %}
                 <div>
-                  <a href="{% url 'audio:new_episode' feed_pk=j.feed.pk feed_title_slug=j.feed.slug %}">New Episode?</a>
+                  <a href="{% url 'audio:new_episode' feed_pk=j.feed.pk feed_title_slug=j.feed.slug %}" class="text-dark" style="text-decoration: underline">New Episode?</a>
                 </div>
                 {% endif %}
               </div>
@@ -101,7 +101,7 @@
         {% endfor %}
         {% if is_episode %}
           <div class="text-center">
-            More from <a href="{% url 'audio:feed' pk=feed.id slug=feed.slug %}">{{ feed.title }}</a>?
+            More from <a href="{% url 'audio:feed' pk=feed.id slug=feed.slug %}" class="text-dark" style="text-decoration: underline">{{ feed.title }}</a>?
           </div>
         {% endif %}
       </div>
