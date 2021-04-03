@@ -4,7 +4,8 @@ LICENSE_CHOICES = [
     (3, 'CC BY-SA 2.5'),
     (4, 'CC BY-SA 3.0'),
     (5, 'CC BY 3.0'),
-    (6, 'CC BY 1.0')
+    (6, 'CC BY 1.0'),
+    (7, 'CC0 1.0')
 ]
 
 
@@ -21,3 +22,5 @@ def get_license_info(x):
         return ('CC BY 3.0', 'https://creativecommons.org/licenses/by/3.0')
     if x == 6:
         return ('CC BY 1.0', 'https://creativecommons.org/licenses/by/1.0')
+    if x == 6:
+        return ('CC0 1.0', 'https://creativecommons.org/publicdomain/zero/1.0')
