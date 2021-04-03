@@ -22,5 +22,5 @@ def get_license_info(x):
         return ('CC BY 3.0', 'https://creativecommons.org/licenses/by/3.0')
     if x == 6:
         return ('CC BY 1.0', 'https://creativecommons.org/licenses/by/1.0')
-    if x == 6:
+    if x == 7:
         return ('CC0 1.0', 'https://creativecommons.org/publicdomain/zero/1.0')
