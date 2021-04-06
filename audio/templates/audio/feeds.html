@@ -23,11 +23,22 @@
                     <p class="text-center mb-2 mt-3">{{ i.created_on }}</p>
                     <div class="d-flex flex-row justify-content-around align-items-center">
                       <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:feed' pk=i.pk slug=i.slug %}">Items</a></p>
-                      <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:rss' slug=i.slug %}">RSS</a></p>
+                      <p class="mb-1"><a type="button" class="btn btn-dark" href="#x{{ i.slug }}-rss" data-toggle="collapse">PodCast</a></p>
                     </div>
                     <a href="#x{{ i.slug }}-attributions" data-toggle="collapse" class="text-center text-dark" style="text-decoration: underline">license/attribution</a>
                 </div>
               </div>
+                    <div id="x{{ i.slug }}-rss" class="collapse">
+                      <hr class="my-2">
+                      <div class="d-flex flex-row justify-content-around flex-wrap">
+                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{{ i.get_itpc_rss }}">BeyondPod</a></p>
+                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:rss' slug=i.slug %}">RSS</a></p>
+                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{{ i.get_itpc_rss }}">Other ITPC</a></p>
+                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{{ i.get_itpc_rss }}">AntennaPod</a></p>
+                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{{ i.get_itpc_rss }}">Podcast Addict</a></p>
+                      </div>
+                      <hr class="my-1">
+                    </div>
                     <div id="x{{ i.slug }}-attributions" class="collapse text-justify">
                       Photo <a href="{{ i.original_image_url }}" class="text-dark" style="text-decoration: underline">{{ i.image_title }}</a> by
                       {% if i.image_attribution_url == '' %}

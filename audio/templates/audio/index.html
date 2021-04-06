@@ -45,14 +45,27 @@
                     <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:episode' pk=j.pk slug=j.slug %}">Link</a></p>
                     {% if add_feed_link %}
                       <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:feed' pk=j.feed.id slug=j.feed.slug %}">Feed</a></p>
+                      <p class="mb-1"><a type="button" class="btn btn-dark" href="#x{{ j.slug }}-rss" data-toggle="collapse">Pod</a></p>
+                    {% else %}
+                      <p class="mb-1"><a type="button" class="btn btn-dark" href="#x{{ j.slug }}-rss" data-toggle="collapse">PodCast</a></p>
                     {% endif %}
-                    <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:rss' slug=j.feed.slug %}">RSS</a></p>
                   </div>
                     <a href="#x{{ j.slug }}-attributions" data-toggle="collapse" class="text-center text-dark" style="text-decoration: underline">license/attribution</a>
                 </div>
               </div>
             </div>
             <div class="container w-100 mb-2">
+                    <div id="x{{ j.slug }}-rss" class="collapse">
+                      <hr class="my-2">
+                      <div class="d-flex flex-row justify-content-around flex-wrap">
+                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{{ j.feed.get_itpc_rss }}">BeyondPod</a></p>
+                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:rss' slug=j.feed.slug %}">RSS</a></p>
+                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{{ j.feed.get_itpc_rss }}">Other ITPC</a></p>
+                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{{ j.feed.get_itpc_rss }}">AntennaPod</a></p>
+                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{{ j.feed.get_itpc_rss }}">Podcast Addict</a></p>
+                      </div>
+                      <hr class="my-1">
+                    </div>
                     <div id="x{{ j.slug }}-attributions" class="collapse text-justify">
                       Photo <a href="{{ j.original_image_url }}" class="text-dark" style="text-decoration: underline">{{ j.image_title }}</a> by
                       {% if j.image_attribution_url == '' %}

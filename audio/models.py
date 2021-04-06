@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from tp.models import UUIDAsIDModel
 from django.contrib.auth.models import User
 from django.utils.text import slugify
@@ -74,6 +75,10 @@ class Feed(EpisodeAndFeed):
         choices=LICENSE_CHOICES,
         default=1,
     )
+
+    @property
+    def get_itpc_rss(self):
+        return(f'itpc://{settings.DOMAIN_NAME}/rss/{self.slug}.xml')
 
     @property
     def license_name(self):
