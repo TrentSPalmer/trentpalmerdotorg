@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import SimpleTestCase
 from audio.choices import LICENSE_CHOICES, get_license_info
 
 TEST_LICENSE_CHOICES = (
@@ -22,7 +22,7 @@ TEST_LICENSE_INFO = (
 )
 
 
-class LicenseChoicesTestCase(TestCase):
+class LicenseChoicesTestCase(SimpleTestCase):
 
     def test_license_choices(self):
         self.assertEqual(len(LICENSE_CHOICES), 7)
