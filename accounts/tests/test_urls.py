@@ -3,6 +3,13 @@ from django.urls import reverse, resolve
 from accounts.views import log_out, password_change, register, edit_profile
 from accounts.login import log_in, two_factor_input
 from accounts.enable_totp import enable_totp, disable_totp
+from accounts.urls import urlpatterns
+
+
+class TestNumUrls(SimpleTestCase):
+
+    def test_num_urls(self):
+        self.assertEquals(len(urlpatterns), 12)
 
 
 class TestViewsUrls(SimpleTestCase):
