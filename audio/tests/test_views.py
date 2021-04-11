@@ -13,17 +13,38 @@ def set_up():
     user_b.set_password('password_user_b')
     user_b.save()
     feed_a = Feed.objects.create(user=user_a, title='Caesar-Pompey Civil War')
-    feed_b = Feed.objects.create(user=user_a, title="Caesar's De Bello Gallico & Other Commentaries")
+    feed_b = Feed.objects.create(
+        user=user_a, title="Caesar's De Bello Gallico & Other Commentaries"
+    )
     feed_c = Feed.objects.create(user=user_b, title="Short Stories Mark Twain")
-    Episode.objects.create(user=user_a, feed=feed_a, title="Caesar-Pompey Civil War Book I", pub_date=datetime.today() - timedelta(days=8))
-    Episode.objects.create(user=user_a, feed=feed_a, title="Caesar-Pompey Civil War Book II", pub_date=datetime.today() - timedelta(days=7))
-    Episode.objects.create(user=user_a, feed=feed_b, title="De Bello Gallico & Other Commentaries Book I", pub_date=datetime.today() - timedelta(days=6))
-    Episode.objects.create(user=user_a, feed=feed_b, title="De Bello Gallico & Other Commentaries Book II", pub_date=datetime.today() - timedelta(days=5))
-    Episode.objects.create(user=user_b, feed=feed_c, title="Mark Twain On Girls", pub_date=datetime.today() - timedelta(days=4))
-    Episode.objects.create(user=user_b, feed=feed_c, title="Mark Twain The Bee", pub_date=datetime.today() - timedelta(days=3))
+    Episode.objects.create(
+        user=user_a, feed=feed_a, title="Caesar-Pompey Civil War Book I",
+        pub_date=datetime.today() - timedelta(days=8)
+    )
+    Episode.objects.create(
+        user=user_a, feed=feed_a, title="Caesar-Pompey Civil War Book II",
+        pub_date=datetime.today() - timedelta(days=7)
+    )
+    Episode.objects.create(
+        user=user_a, feed=feed_b,
+        title="De Bello Gallico & Other Commentaries Book I",
+        pub_date=datetime.today() - timedelta(days=6)
+    )
+    Episode.objects.create(
+        user=user_a, feed=feed_b, title="De Bello Gallico & Other Commentaries Book II",
+        pub_date=datetime.today() - timedelta(days=5)
+    )
+    Episode.objects.create(
+        user=user_b, feed=feed_c, title="Mark Twain On Girls",
+        pub_date=datetime.today() - timedelta(days=4)
+    )
+    Episode.objects.create(
+        user=user_b, feed=feed_c, title="Mark Twain The Bee",
+        pub_date=datetime.today() - timedelta(days=3)
+    )
 
 
-class TestViews(TestCase):
+class TestViewsTestCase(TestCase):
 
     def setUp(self):
         set_up()
