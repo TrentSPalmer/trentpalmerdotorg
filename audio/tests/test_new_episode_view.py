@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.contrib.auth.models import User
 from audio.tests.test_views import set_up
 from audio.models import Episode, Feed
 from django.urls import reverse
@@ -50,6 +51,7 @@ class TestNewEpisodeViewTestCase(TestCase):
 
     def test_new_episode_view(self):
         feed_a = Feed.objects.get(title="Short Stories Mark Twain")
+        user_b = User.objects.get(username='user_b')
         self.client.login(username='user_b', password='password_user_b')
         kw_args = {'feed_pk': feed_a.pk, 'feed_title_slug': feed_a.slug}
         pub_date = str(date.today())
@@ -95,3 +97,5 @@ class TestNewEpisodeViewTestCase(TestCase):
         self.assertEquals(
             episode_a.image_license_url, 'https://en.wikipedia.org/wiki/Public_domain'
         )
+        self.assertEquals(episode_a.user, user_b)
+        self.assertEquals(episode_a.feed, feed_a)
