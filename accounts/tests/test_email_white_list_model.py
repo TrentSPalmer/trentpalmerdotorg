@@ -3,7 +3,7 @@ from uuid import UUID
 from accounts.models import EmailWhiteList
 
 
-class EmailWhiteListModelTest(TestCase):
+class EmailWhiteListModelTestCase(TestCase):
 
     def setUp(self):
         email_a = EmailWhiteList(email='user_a@example.com')
