@@ -4,7 +4,7 @@ from accounts.models import Account
 from uuid import UUID
 
 
-class UserModelTest(TestCase):
+class UserModelTestCase(TestCase):
 
     def setUp(self):
         user_a = User(email='user_a@example.com', username='user_a')
