@@ -30,12 +30,13 @@
               </div>
                     <div id="x{{ i.slug }}-rss" class="collapse">
                       <hr class="my-2">
+                      <div class="text-justify">
+                        <p>If you have a podcast client such as AntennaPod, Podcast Addict, Clementine, or BeyondPod installed, you can try ITPC.</p>
+                        <p>Or you can paste the rss link into your client.</p>
+                      </div>
                       <div class="d-flex flex-row justify-content-around flex-wrap">
-                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{{ i.get_itpc_rss }}">BeyondPod</a></p>
-                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:rss' slug=i.slug %}">RSS</a></p>
-                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{{ i.get_itpc_rss }}">Other ITPC</a></p>
-                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{{ i.get_itpc_rss }}">AntennaPod</a></p>
-                        <p class="mb-1"><a type="button" class="btn btn-dark" href="{{ i.get_itpc_rss }}">Podcast Addict</a></p>
+                        <p><a type="button" class="btn btn-dark" href="{{ i.get_itpc_rss }}">ITPC</a></p>
+                        <p><a type="button" class="btn btn-dark" href="{% url 'audio:rss' slug=i.slug %}">RSS</a></p>
                       </div>
                       <hr class="my-1">
                     </div>
