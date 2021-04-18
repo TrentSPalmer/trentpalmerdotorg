@@ -16,8 +16,8 @@ class TestNewEpisodeViewTestCase(TestCase):
         self.client.login(username='user_b', password='password_user_b')
         kw_args = {'feed_pk': feed_a.pk, 'feed_title_slug': feed_a.slug}
         response = self.client.post(reverse('audio:new_episode', kwargs=kw_args))
-        self.assertTemplateUsed(response, 'base_form.html')
         self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'base_form.html')
         qs = Episode.objects.filter(title="Mark Twain Taming The Bicycle")
         self.assertEquals(len(qs), 0)
         self.assertEquals(
@@ -48,8 +48,8 @@ class TestNewEpisodeViewTestCase(TestCase):
                 'image_license_jurisdiction': 'in the USA',
                 'image': image_f,
             }, follow=True)
-        self.assertTemplateUsed(response, 'audio/index.html')
         self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'audio/index.html')
         qs = Episode.objects.filter(title="Mark Twain Taming The Bicycle")
         self.assertEquals(len(qs), 0)
         self.assertEquals(response.request['PATH_INFO'], '/')
