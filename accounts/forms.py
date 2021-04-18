@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import ValidationError, UsernameField, UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Account, EmailWhiteList
+from .models import Account, EmailWhiteList, twitter_handle_validator
 
 
 class EnableTotpForm(forms.ModelForm):
@@ -58,7 +58,7 @@ class EditProfileForm(forms.Form):
 
     first_name = UsernameField(required=False)
     last_name = UsernameField(required=False)
-    twitter_handle = forms.CharField(max_length=64)
+    twitter_handle = forms.CharField(max_length=64, validators=[twitter_handle_validator])
 
     password = forms.CharField(
         label="confirm password",
@@ -75,8 +75,14 @@ class EditProfileForm(forms.Form):
         email = self.cleaned_data.get('email')
         first_name = self.cleaned_data.get('first_name')
         last_name = self.cleaned_data.get('last_name')
-        password = self.cleaned_data["password"]
-        t_handle = self.cleaned_data['twitter_handle']
+        if 'password' in self.cleaned_data:
+            password = self.cleaned_data["password"]
+        else:
+            password = ''
+        if 'twitter_handle' in self.cleaned_data:
+            t_handle = self.cleaned_data['twitter_handle']
+        else:
+            t_handle = ''
         if not self.user.check_password(password):
             raise ValidationError("password is incorrect.")
         if email != self.user.email:
