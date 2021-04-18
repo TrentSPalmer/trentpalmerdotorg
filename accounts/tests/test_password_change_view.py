@@ -22,6 +22,7 @@ class PasswordChangeViewTestCase(TestCase):
         user_a = User.objects.get(username='user_a')
         self.assertTrue(user_a.check_password('password123456'))
         self.assertTemplateUsed(response, 'audio/index.html')
+        self.assertEquals(response.request['PATH_INFO'], '/')
 
     def test_password_change_view_mismatched_passwords(self):
         self.client.login(username='user_a', password='password123456')
@@ -34,6 +35,7 @@ class PasswordChangeViewTestCase(TestCase):
         user_a = User.objects.get(username='user_a')
         self.assertTrue(user_a.check_password('password123456'))
         self.assertTemplateUsed(response, 'base_form.html')
+        self.assertEquals(response.request['PATH_INFO'], '/accounts/password-change/')
 
     def test_password_change_view_bad_password(self):
         self.client.login(username='user_a', password='password123456')
@@ -46,6 +48,7 @@ class PasswordChangeViewTestCase(TestCase):
         user_a = User.objects.get(username='user_a')
         self.assertTrue(user_a.check_password('password123456'))
         self.assertTemplateUsed(response, 'base_form.html')
+        self.assertEquals(response.request['PATH_INFO'], '/accounts/password-change/')
 
     def test_password_change_view(self):
         self.client.login(username='user_a', password='password123456')
@@ -58,3 +61,4 @@ class PasswordChangeViewTestCase(TestCase):
         user_a = User.objects.get(username='user_a')
         self.assertTrue(user_a.check_password('123456password'))
         self.assertTemplateUsed(response, 'base_form.html')
+        self.assertEquals(response.request['PATH_INFO'], '/accounts/edit-profile/')
