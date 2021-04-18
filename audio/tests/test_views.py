@@ -53,6 +53,7 @@ class TestViewsTestCase(TestCase):
         response = self.client.get(reverse('audio:home'))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'audio/index.html')
+        self.assertEquals(response.request['PATH_INFO'], '/')
 
     def test_feed_view(self):
         feed_a = Feed.objects.get(title="Short Stories Mark Twain")
@@ -60,6 +61,10 @@ class TestViewsTestCase(TestCase):
         response = self.client.get(reverse('audio:feed', kwargs=kw_args))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'audio/index.html')
+        self.assertEquals(
+            response.request['PATH_INFO'],
+            f'/feed/{feed_a.pk}/{feed_a.slug}'
+        )
 
     def test_episode_view(self):
         episode_a = Episode.objects.get(title='Mark Twain The Bee')
@@ -67,8 +72,13 @@ class TestViewsTestCase(TestCase):
         response = self.client.get(reverse('audio:episode', kwargs=kw_args))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'audio/index.html')
+        self.assertEquals(
+            response.request['PATH_INFO'],
+            f'/episode/{episode_a.pk}/{episode_a.slug}'
+        )
 
     def test_feeds_view(self):
         response = self.client.get(reverse('audio:feeds'))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'audio/feeds.html')
+        self.assertEquals(response.request['PATH_INFO'], '/feeds/')

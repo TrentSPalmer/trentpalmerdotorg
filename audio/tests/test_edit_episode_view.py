@@ -37,6 +37,10 @@ class TestEditEpisodeViewTestCase(TestCase):
         )
         self.assertEquals(episode_ab.image_license, 1)
         self.assertEquals(episode_ab.image_license_jurisdiction, "in the United States")
+        self.assertEquals(
+            response.request['PATH_INFO'],
+            f'/edit-episode/{episode_ab.pk}/{episode_ab.slug}'
+        )
 
     def test_edit_episode_view_no_data(self):
         episode_a = Episode.objects.get(title="Mark Twain The Bee")
@@ -47,6 +51,10 @@ class TestEditEpisodeViewTestCase(TestCase):
         self.assertEquals(response.status_code, 200)
         episode_ab = Episode.objects.get(title="Mark Twain The Bee")
         self.assertEquals(episode_ab.author, '')
+        self.assertEquals(
+            response.request['PATH_INFO'],
+            f'/edit-episode/{episode_ab.pk}/{episode_ab.slug}'
+        )
 
     def test_edit_episode_view_no_login(self):
         episode_a = Episode.objects.get(title="Mark Twain The Bee")
@@ -67,3 +75,4 @@ class TestEditEpisodeViewTestCase(TestCase):
         self.assertEquals(response.status_code, 200)
         episode_ab = Episode.objects.get(title="Mark Twain The Bee")
         self.assertEquals(episode_ab.author, "")
+        self.assertEquals(response.request['PATH_INFO'], '/')

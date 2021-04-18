@@ -62,6 +62,10 @@ class TestEditFeedViewTestCase(TestCase):
         self.assertEquals(feed_a.license_url, "https://en.wikipedia.org/wiki/Public_domain")
         self.assertEquals(feed_a.license_name, 'Public Domain')
         self.assertEquals(feed_a.get_itpc_rss, f'itpc://{settings.DOMAIN_NAME}/rss/{feed_a.slug}.xml')
+        self.assertEquals(
+            response.request['PATH_INFO'],
+            f'/edit-feed/{feed_a.pk}/{feed_a.slug}'
+        )
 
     def test_edit_feed_view_no_data(self):
         feed_c = Feed.objects.get(title="Short Stories Mark Twain")
@@ -95,6 +99,10 @@ class TestEditFeedViewTestCase(TestCase):
         self.assertEquals(feed_a.license_url, "https://en.wikipedia.org/wiki/Public_domain")
         self.assertEquals(feed_a.license_name, 'Public Domain')
         self.assertEquals(feed_a.get_itpc_rss, f'itpc://{settings.DOMAIN_NAME}/rss/{feed_a.slug}.xml')
+        self.assertEquals(
+            response.request['PATH_INFO'],
+            f'/edit-feed/{feed_a.pk}/{feed_a.slug}'
+        )
 
     def test_edit_feed_view(self):
         feed_c = Feed.objects.get(title="Short Stories Mark Twain")
@@ -149,3 +157,7 @@ class TestEditFeedViewTestCase(TestCase):
         self.assertEquals(feed_a.license_url, "https://en.wikipedia.org/wiki/Public_domain")
         self.assertEquals(feed_a.license_name, 'Public Domain')
         self.assertEquals(feed_a.get_itpc_rss, f'itpc://{settings.DOMAIN_NAME}/rss/{feed_a.slug}.xml')
+        self.assertEquals(
+            response.request['PATH_INFO'],
+            f'/edit-feed/{feed_a.pk}/{feed_a.slug}'
+        )

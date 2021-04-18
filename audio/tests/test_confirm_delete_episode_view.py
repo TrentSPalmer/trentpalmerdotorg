@@ -20,6 +20,10 @@ class TestConfirmDeleteEpisodeViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'audio/index.html')
         qs = Episode.objects.filter(title="Mark Twain The Bee")
         self.assertEquals(len(qs), 0)
+        self.assertEquals(
+            response.request['PATH_INFO'],
+            f'/feed/{episode_a.feed.pk}/{episode_a.feed.slug}'
+        )
 
     def test_confirm_delete_episode_view_no_login(self):
         episode_a = Episode.objects.get(title="Mark Twain The Bee")
@@ -31,3 +35,4 @@ class TestConfirmDeleteEpisodeViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'audio/index.html')
         qs = Episode.objects.filter(title="Mark Twain The Bee")
         self.assertEquals(len(qs), 1)
+        self.assertEquals(response.request['PATH_INFO'], '/')

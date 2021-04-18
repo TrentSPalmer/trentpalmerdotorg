@@ -32,6 +32,7 @@ class TestNewFeedViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'base_form.html')
         qs = Feed.objects.filter(title="Short Stories Mark Twain")
         self.assertEquals(len(qs), 0)
+        self.assertEquals(response.request['PATH_INFO'], '/new-feed/')
 
     def test_new_feed_view_no_login(self):
         with open('bicycle.jpg', 'rb') as image_f:
@@ -60,6 +61,7 @@ class TestNewFeedViewTestCase(TestCase):
         self.assertTemplateUsed(response, 'audio/index.html')
         qs = Feed.objects.filter(title="Short Stories Mark Twain")
         self.assertEquals(len(qs), 0)
+        self.assertEquals(response.request['PATH_INFO'], '/')
 
     def test_new_feed_view(self):
         self.client.login(username='user_b', password='password_user_b')
@@ -112,3 +114,4 @@ class TestNewFeedViewTestCase(TestCase):
         self.assertEquals(feed_a.license_url, "https://en.wikipedia.org/wiki/Public_domain")
         self.assertEquals(feed_a.license_name, 'Public Domain')
         self.assertEquals(feed_a.get_itpc_rss, f'itpc://{settings.DOMAIN_NAME}/rss/{feed_a.slug}.xml')
+        self.assertEquals(response.request['PATH_INFO'], '/new-feed/')

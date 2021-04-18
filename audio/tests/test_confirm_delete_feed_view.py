@@ -24,6 +24,7 @@ class TestConfirmDeleteFeedViewTestCase(TestCase):
         self.assertEquals(len(qs), 0)
         qs = Episode.objects.filter(title="Mark Twain The Bee")
         self.assertEquals(len(qs), 0)
+        self.assertEquals(response.request['PATH_INFO'], '/feeds/')
 
     def test_confirm_delete_feed_view_no_login(self):
         feed_a = Feed.objects.get(title="Short Stories Mark Twain")
@@ -39,3 +40,4 @@ class TestConfirmDeleteFeedViewTestCase(TestCase):
         self.assertEquals(len(qs), 1)
         qs = Episode.objects.filter(title="Mark Twain The Bee")
         self.assertEquals(len(qs), 1)
+        self.assertEquals(response.request['PATH_INFO'], '/')

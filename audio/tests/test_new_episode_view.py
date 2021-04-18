@@ -20,6 +20,10 @@ class TestNewEpisodeViewTestCase(TestCase):
         self.assertEquals(response.status_code, 200)
         qs = Episode.objects.filter(title="Mark Twain Taming The Bicycle")
         self.assertEquals(len(qs), 0)
+        self.assertEquals(
+            response.request['PATH_INFO'],
+            f'/new-episode/{feed_a.pk}/{feed_a.slug}'
+        )
 
     def test_new_episode_view_no_login(self):
         feed_a = Feed.objects.get(title="Short Stories Mark Twain")
@@ -48,6 +52,7 @@ class TestNewEpisodeViewTestCase(TestCase):
         self.assertEquals(response.status_code, 200)
         qs = Episode.objects.filter(title="Mark Twain Taming The Bicycle")
         self.assertEquals(len(qs), 0)
+        self.assertEquals(response.request['PATH_INFO'], '/')
 
     def test_new_episode_view(self):
         feed_a = Feed.objects.get(title="Short Stories Mark Twain")
@@ -99,3 +104,7 @@ class TestNewEpisodeViewTestCase(TestCase):
         )
         self.assertEquals(episode_a.user, user_b)
         self.assertEquals(episode_a.feed, feed_a)
+        self.assertEquals(
+            response.request['PATH_INFO'],
+            f'/new-episode/{feed_a.pk}/{feed_a.slug}'
+        )
