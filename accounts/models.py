@@ -1,6 +1,12 @@
 from django.db import models
 from tp.models import UUIDAsIDModel
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
+
+def twitter_handle_validator(x):
+    if x[0] != '@':
+        raise ValidationError('twitter_handle must begin with "@"')
 
 
 class EmailWhiteList(UUIDAsIDModel):
