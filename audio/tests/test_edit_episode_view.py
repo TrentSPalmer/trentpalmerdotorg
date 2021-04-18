@@ -25,8 +25,8 @@ class TestEditEpisodeViewTestCase(TestCase):
             'image_license': 1,
             'image_license_jurisdiction': "in the United States",
         })
-        episode_ab = Episode.objects.get(title="Mark Twain The Bee")
         self.assertEquals(response.status_code, 302)
+        episode_ab = Episode.objects.get(title="Mark Twain The Bee")
         self.assertEquals(episode_ab.author, "Mark Twain")
         self.assertEquals(episode_ab.episode_number, 2)
         self.assertEquals(episode_ab.description, "An essay about the human quality of bees.")
@@ -47,8 +47,8 @@ class TestEditEpisodeViewTestCase(TestCase):
         self.client.login(username='user_b', password='password_user_b')
         kw_args = {'pk': episode_a.pk, 'title_slug': episode_a.slug}
         response = self.client.post(reverse('audio:edit_episode', kwargs=kw_args))
-        self.assertTemplateUsed(response, 'base_form.html')
         self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'base_form.html')
         episode_ab = Episode.objects.get(title="Mark Twain The Bee")
         self.assertEquals(episode_ab.author, '')
         self.assertEquals(
@@ -71,8 +71,8 @@ class TestEditEpisodeViewTestCase(TestCase):
             'image_license': 1,
             'image_license_jurisdiction': "in the United States",
         }, follow=True)
-        self.assertTemplateUsed(response, 'audio/index.html')
         self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'audio/index.html')
         episode_ab = Episode.objects.get(title="Mark Twain The Bee")
         self.assertEquals(episode_ab.author, "")
         self.assertEquals(response.request['PATH_INFO'], '/')
