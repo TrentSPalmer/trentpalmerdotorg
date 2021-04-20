@@ -7,7 +7,7 @@
   {% include "base_navbar.html" %}
   {% include "base_heading.html" %}
   <div class="containe mt-4">
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center" id="svgcontainer">
       <style> svg { transform: scale(1.5); } </style>
       {{ qr | safe }}
     </div>
