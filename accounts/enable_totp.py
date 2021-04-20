@@ -26,6 +26,8 @@ def disable_totp(request):
 def enable_totp(request):
     if not request.user.is_authenticated:
         return redirect('audio:home')
+    if request.user.account.use_totp and request.user.account.totp_key is not None:
+        return(redirect('accounts:edit_profile'))
     qr = get_totp_qr(request.user)
     if request.method == "POST":
         form = EnableTotpForm(request.POST, instance=request.user.account)
