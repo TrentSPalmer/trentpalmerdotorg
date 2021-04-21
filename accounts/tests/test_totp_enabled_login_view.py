@@ -16,6 +16,16 @@ class TestTOTPEnabledLogInViewTestCase(TestCase):
             user=user_a,
             use_totp=True, totp_key=pyotp.random_base32())
 
+    def test_TOTP_enabled_log_in_view_already_logged_in(self):
+        self.client.login(username='user_a', password='password_user_a')
+        user_a = User.objects.get(username='user_a')
+        totp_code = pyotp.TOTP(user_a.account.totp_key).now()
+        response = self.client.post(reverse('accounts:two_factor_input'), {
+            'totp_code': totp_code}, follow=True)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'audio/index.html')
+        self.assertEquals(response.request['PATH_INFO'], '/')
+
     def test_TOTP_enabled_log_in_view_wrong_code_with_retries(self):
         login_response = self.client.post(reverse('accounts:login'), {
             'username': 'user_a',
