@@ -21,3 +21,4 @@ class EmailWhiteListModelTestCase(TestCase):
         for i, x in enumerate(white_listed_emails):
             self.assertTrue(isinstance(white_listed_emails[i].pk, UUID))
             self.assertTrue(isinstance(white_listed_emails[i].email, str))
+            self.assertEquals(str(x), x.email)
