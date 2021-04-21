@@ -12,6 +12,13 @@ class PasswordChangeViewTestCase(TestCase):
         user_a.save()
         Account.objects.create(user=user_a, twitter_handle='@user_a')
 
+    def test_password_change_view_get(self):
+        self.client.login(username='user_a', password='password123456')
+        response = self.client.get(reverse('accounts:password_change'))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'base_form.html')
+        self.assertEquals(response.request['PATH_INFO'], '/accounts/password-change/')
+
     def test_password_change_view_no_login(self):
         response = self.client.post(reverse('accounts:password_change'), {
             'old_password': 'password123456',
