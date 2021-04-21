@@ -19,20 +19,27 @@ class TestDisableTOTPViewTestCase(TestCase):
             user=user_b,
             use_totp=True, totp_key=pyotp.random_base32())
 
-    def test_dsable_totp_view_no_login(self):
+    def test_disable_totp_view_get(self):
+        self.client.login(username='user_b', password='password_user_b')
+        response = self.client.get(reverse('accounts:disable_totp'))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'confirmation.html')
+        self.assertEquals(response.request['PATH_INFO'], '/accounts/disable-totp/')
+
+    def test_disable_totp_view_no_login(self):
         response = self.client.post(reverse('accounts:disable_totp'), follow=True)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'audio/index.html')
         self.assertEquals(response.request['PATH_INFO'], '/')
 
-    def test_dsable_totp_view_not_enabled(self):
+    def test_disable_totp_view_not_enabled(self):
         self.client.login(username='user_a', password='password_user_a')
         response = self.client.post(reverse('accounts:disable_totp'), follow=True)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'audio/index.html')
         self.assertEquals(response.request['PATH_INFO'], '/')
 
-    def test_dsable_totp_view(self):
+    def test_disable_totp_view(self):
         self.client.login(username='user_b', password='password_user_b')
         response = self.client.post(reverse('accounts:disable_totp'), follow=True)
         self.assertEquals(response.status_code, 200)
