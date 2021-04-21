@@ -45,3 +45,4 @@ class UserModelTestCase(TestCase):
         self.assertTrue(user_b.account.totp_key is None)
         self.assertFalse(user_b.account.use_totp)
         self.assertTrue(isinstance(user_b.account.pk, UUID))
+        self.assertEquals(str(user_b.account), user_b.username)
