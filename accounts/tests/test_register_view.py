@@ -19,7 +19,13 @@ class RegisterViewTestCase(TestCase):
         EmailWhiteList.objects.create(email='user_b@example.com')
         EmailWhiteList.objects.create(email='user_c@example.com')
 
-    def test_register_user_already_exists(self):
+    def test_register_view_get(self):
+        response = self.client.get(reverse('accounts:register'))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'base_form.html')
+        self.assertEquals(response.request['PATH_INFO'], '/accounts/register/')
+
+    def test_register_view_user_already_exists(self):
         response = self.client.post(reverse('accounts:register'), {
             'username': 'user_c',
             'email': 'user_c@example.com',
@@ -34,7 +40,7 @@ class RegisterViewTestCase(TestCase):
         msg = "Try a different username, that one already exists."
         self.assertEquals(response.content.decode('utf-8').count(msg), 1)
 
-    def test_register_email_already_exists(self):
+    def test_register_view_email_already_exists(self):
         response = self.client.post(reverse('accounts:register'), {
             'username': 'user_a',
             'email': 'user_b@example.com',
@@ -49,7 +55,7 @@ class RegisterViewTestCase(TestCase):
         msg = "An account already exists with this email address."
         self.assertEquals(response.content.decode('utf-8').count(msg), 1)
 
-    def test_register_already_logged_in(self):
+    def test_register_view_already_logged_in(self):
         self.client.login(username='user_b', password='123456password')
         response = self.client.post(reverse('accounts:register'), {
             'username': 'user_a',
@@ -63,7 +69,7 @@ class RegisterViewTestCase(TestCase):
         self.assertEquals(len(qs), 0)
         self.assertEquals(response.request['PATH_INFO'], '/')
 
-    def test_register_email_no_data(self):
+    def test_register_view_email_no_data(self):
         response = self.client.post(reverse('accounts:register'), follow=True)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'base_form.html')
@@ -73,7 +79,7 @@ class RegisterViewTestCase(TestCase):
         self.assertTrue("Email Not Authorized, try another." in response.content.decode('utf-8'))
         self.assertEquals(response.content.decode('utf-8').count("This field is required."), 4)
 
-    def test_register_email_not_authorized(self):
+    def test_register_view_email_not_authorized(self):
         response = self.client.post(reverse('accounts:register'), {
             'username': 'user_a',
             'email': 'user_a@foobar.com',
@@ -87,7 +93,7 @@ class RegisterViewTestCase(TestCase):
         self.assertEquals(response.request['PATH_INFO'], '/accounts/register/')
         self.assertTrue("Email Not Authorized, try another." in response.content.decode('utf-8'))
 
-    def test_register_passwords_dont_match(self):
+    def test_register_view_passwords_dont_match(self):
         response = self.client.post(reverse('accounts:register'), {
             'username': 'user_a',
             'email': 'user_a@example.com',
@@ -101,7 +107,7 @@ class RegisterViewTestCase(TestCase):
         self.assertEquals(response.request['PATH_INFO'], '/accounts/register/')
         self.assertTrue("The two password fields didn’t match." in response.content.decode('utf-8'))
 
-    def test_register_password_too_common(self):
+    def test_register_view_password_too_common(self):
         response = self.client.post(reverse('accounts:register'), {
             'username': 'user_a',
             'email': 'user_a@example.com',
@@ -115,7 +121,7 @@ class RegisterViewTestCase(TestCase):
         self.assertEquals(response.request['PATH_INFO'], '/accounts/register/')
         self.assertTrue("This password is too common." in response.content.decode('utf-8'))
 
-    def test_register(self):
+    def test_register_view(self):
         response = self.client.post(reverse('accounts:register'), {
             'username': 'user_a',
             'email': 'user_a@example.com',
