@@ -10,6 +10,13 @@ class TestLogOutViewTestCase(TestCase):
         user_a.set_password('password_user_a')
         user_a.save()
 
+    def test_log_out_view_get(self):
+        self.client.login(username='user_a', password='password_user_a')
+        response = self.client.get(reverse('accounts:logout'))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'confirmation.html')
+        self.assertEquals(response.request['PATH_INFO'], '/accounts/logout/')
+
     def test_log_out_view(self):
         self.client.login(username='user_a', password='password_user_a')
         response = self.client.post(reverse('accounts:logout'), follow=True)
