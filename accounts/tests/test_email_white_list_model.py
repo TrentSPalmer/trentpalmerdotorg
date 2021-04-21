@@ -10,7 +10,7 @@ class EmailWhiteListModelTestCase(TestCase):
         email_a.save()
         EmailWhiteList.objects.create(email='user_b@example.com')
 
-    def test_email(self):
+    def test_email_white_list_model(self):
         white_listed_emails = EmailWhiteList.objects.all()
 
         self.assertTrue(len(white_listed_emails) == 2)
