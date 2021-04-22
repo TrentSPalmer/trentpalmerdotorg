@@ -25,6 +25,13 @@ class TestNewFeedViewTestCase(TestCase):
             pub_date=datetime.today() - timedelta(days=7)
         )
 
+    def test_new_feed_view_get(self):
+        self.client.login(username='user_b', password='password_user_b')
+        response = self.client.get(reverse('audio:new_feed'))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'base_form.html')
+        self.assertEquals(response.request['PATH_INFO'], '/new-feed/')
+
     def test_new_feed_view_no_data(self):
         self.client.login(username='user_b', password='password_user_b')
         response = self.client.post(reverse('audio:new_feed'))
