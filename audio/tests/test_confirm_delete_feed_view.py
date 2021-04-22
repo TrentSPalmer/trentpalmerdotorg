@@ -9,6 +9,19 @@ class TestConfirmDeleteFeedViewTestCase(TestCase):
     def setUp(self):
         set_up()
 
+    def test_confirm_delete_feed_view_incorrect_user(self):
+        feed_a = Feed.objects.get(title="Short Stories Mark Twain")
+        self.client.login(username='user_a', password='password_user_a')
+        kw_args = {'pk': feed_a.pk}
+        response = self.client.post(
+            reverse('audio:confirm_delete_feed', kwargs=kw_args),
+            follow=True)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'audio/index.html')
+        self.assertEquals(response.request['PATH_INFO'], '/')
+        qs = Feed.objects.filter(title="Short Stories Mark Twain")
+        self.assertEquals(len(qs), 1)
+
     def test_confirm_delete_feed_view(self):
         feed_a = Feed.objects.get(title="Short Stories Mark Twain")
         self.client.login(username='user_b', password='password_user_b')
