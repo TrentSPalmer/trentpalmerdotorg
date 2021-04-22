@@ -11,8 +11,9 @@ class TestEditFeedViewTestCase(TestCase):
     def setUp(self):
         set_up()
 
-    def test_edit_feed_view_no_login(self):
+    def test_edit_feed_view_incorrect_user(self):
         feed_c = Feed.objects.get(title="Short Stories Mark Twain")
+        self.client.login(username='user_a', password='password_user_a')
         kw_args = {'pk': feed_c.pk, 'title_slug': feed_c.slug}
         with open('bicycle.jpg', 'rb') as image_f:
             response = self.client.post(reverse('audio:edit_feed', kwargs=kw_args), {
@@ -49,6 +50,62 @@ class TestEditFeedViewTestCase(TestCase):
         self.assertEquals(feed_a.intro_author, "")
         self.assertEquals(feed_a.intro_author_url, "")
         self.assertEquals(feed_a.license, 1)
+        self.assertEquals(feed_a.description, "")
+        self.assertEquals(feed_a.image_title, "")
+        self.assertEquals(feed_a.image_attribution, "")
+        self.assertEquals(feed_a.image_attribution_url, "")
+        self.assertEquals(feed_a.original_image_url, "")
+        self.assertEquals(feed_a.image_license, 2)
+        self.assertEquals(feed_a.image_license_jurisdiction, "(no jurisdiction specified)")
+        self.assertEquals(feed_a.image, '')
+        self.assertEquals(feed_a.image_license_url, "https://example.com")
+        self.assertEquals(feed_a.image_license_name, 'Unknown')
+        self.assertEquals(feed_a.license_url, "https://en.wikipedia.org/wiki/Public_domain")
+        self.assertEquals(feed_a.license_name, 'Public Domain')
+        self.assertEquals(feed_a.get_itpc_rss, f'itpc://{settings.DOMAIN_NAME}/rss/{feed_a.slug}.xml')
+        self.assertEquals(
+            response.request['PATH_INFO'],
+            f'/edit-feed/{feed_a.pk}/{feed_a.slug}'
+        )
+
+    def test_edit_feed_view_no_login(self):
+        feed_c = Feed.objects.get(title="Short Stories Mark Twain")
+        kw_args = {'pk': feed_c.pk, 'title_slug': feed_c.slug}
+        with open('bicycle.jpg', 'rb') as image_f:
+            response = self.client.post(reverse('audio:edit_feed', kwargs=kw_args), {
+                'title': feed_c.title,
+                'author': "Mark Twain",
+                'ebook_title': "What Is Man? and Other Essays",
+                'ebook_url': "https://gutenberg.org/ebooks/70",
+                'author_url': "http://gutenberg.org/ebooks/author/53",
+                'translator': 'McDevitte, W. A. (William Alexander)',
+                'translator_url': 'https://gutenberg.org/ebooks/author/37952',
+                'intro_author': 'De Quincey, Thomas',
+                'intro_author_url': 'https://gutenberg.org/ebooks/author/797',
+                'license': 1,
+                'license_jurisdiction': 'in the USA',
+                'description': 'Short stories by Mark Twain.',
+                'image_title': 'A Penny Farthing',
+                'image_attribution': 'Agnieszka Kwiecień',
+                'image_attribution_url': 'https://commons.wikimedia.org/wiki/User:Nova',
+                'original_image_url': 'https://commons.wikimedia.org/wiki/File:Ordinary_bicycle01.jpg',
+                'image_license': 1,
+                'image_license_jurisdiction': 'in the USA',
+                'image': image_f,
+            }, follow=True)
+        self.assertEquals(response.status_code, 200)
+        feed_a = Feed.objects.get(title="Short Stories Mark Twain")
+        user_b = User.objects.get(username='user_b')
+        self.assertEquals(feed_a.user, user_b)
+        self.assertEquals(feed_a.author, "")
+        self.assertEquals(feed_a.ebook_title, "")
+        self.assertEquals(feed_a.ebook_url, "")
+        self.assertEquals(feed_a.author_url, "")
+        self.assertEquals(feed_a.translator, "")
+        self.assertEquals(feed_a.translator_url, "")
+        self.assertEquals(feed_a.intro_author, "")
+        self.assertEquals(feed_a.intro_author_url, "")
+        self.assertEquals(feed_a.license, 1)
         self.assertEquals(feed_a.license_jurisdiction, "(no jurisdiction specified)")
         self.assertEquals(feed_a.description, "")
         self.assertEquals(feed_a.image_title, "")
@@ -62,10 +119,7 @@ class TestEditFeedViewTestCase(TestCase):
         self.assertEquals(feed_a.license_url, "https://en.wikipedia.org/wiki/Public_domain")
         self.assertEquals(feed_a.license_name, 'Public Domain')
         self.assertEquals(feed_a.get_itpc_rss, f'itpc://{settings.DOMAIN_NAME}/rss/{feed_a.slug}.xml')
-        self.assertEquals(
-            response.request['PATH_INFO'],
-            f'/edit-feed/{feed_a.pk}/{feed_a.slug}'
-        )
+        self.assertEquals(response.request['PATH_INFO'], '/')
 
     def test_edit_feed_view_no_data(self):
         feed_c = Feed.objects.get(title="Short Stories Mark Twain")
