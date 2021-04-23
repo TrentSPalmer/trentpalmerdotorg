@@ -11,6 +11,36 @@ class TestNewEpisodeViewTestCase(TestCase):
     def setUp(self):
         set_up()
 
+    def test_new_episode_view_wrong_user(self):
+        feed_a = Feed.objects.get(title="Short Stories Mark Twain")
+        self.client.login(username='user_a', password='password_user_a')
+        kw_args = {'feed_pk': feed_a.pk, 'feed_title_slug': feed_a.slug}
+        pub_date = str(date.today())
+        with (
+                open('bicycle.jpg', 'rb') as image_f,
+                open('Mark Twain Taming The Bicycle.mp3', 'rb') as mp3_f
+        ):
+            response = self.client.post(reverse('audio:new_episode', kwargs=kw_args), {
+                'title': "Mark Twain Taming The Bicycle",
+                'author': "Mark Twain",
+                'pub_date': pub_date,
+                'episode_number': 3,
+                'description': 'learn how to ride a bicycle',
+                'mp3': mp3_f,
+                'image_title': 'A Penny Farthing',
+                'image_attribution': 'Agnieszka Kwiecień',
+                'image_attribution_url': 'https://commons.wikimedia.org/wiki/User:Nova',
+                'original_image_url': 'https://commons.wikimedia.org/wiki/File:Ordinary_bicycle01.jpg',
+                'image_license': 1,
+                'image_license_jurisdiction': 'in the USA',
+                'image': image_f,
+            }, follow=True)
+        self.assertEquals(response.status_code, 200)
+        self.assertFalse(Episode.objects.filter(
+            title="Mark Twain Taming The Bicycle").exists())
+        self.assertEquals(response.request['PATH_INFO'], '/')
+        self.assertTemplateUsed(response, 'audio/index.html')
+
     def test_new_episode_view_no_data(self):
         feed_a = Feed.objects.get(title="Short Stories Mark Twain")
         self.client.login(username='user_b', password='password_user_b')
