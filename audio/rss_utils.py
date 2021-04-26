@@ -15,7 +15,7 @@ def get_rss_item_desc(item):
     g = f' {item.feed.image_license_jurisdiction}.</p>'
 
     h = f'<p>Photo <a href="{item.original_image_url}">{item.image_title}</a> by '
-    if item.feed.image_attribution_url == '':
+    if item.image_attribution_url == '':
         i = f'{item.image_attribution}'
     else:
         i = f'<a href="{item.image_attribution_url}">{item.feed.image_attribution}</a>'
@@ -36,6 +36,6 @@ def get_rss_item_desc(item):
     else:
         q = f' Intro by <a href="{item.feed.intro_author_url}">{item.feed.intro_author}</a>.'
 
-    r = f' {item.feed.image_license_jurisdiction}.{p}{q}</p>'
+    r = f' {item.feed.license_jurisdiction}.{p}{q}</p>'
 
     return f'{a}{b}{c}{d}{e}{f}{g}{h}{i}{j}{k}{m}{n}{o}{r}'
