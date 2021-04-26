@@ -1,7 +1,7 @@
 from tp.settings import IMAGES_URL
 
 
-def get_ep_a_description(feed_x, episode_x):
+def get_ep_description(feed_x, episode_x):
     a = f'<h1>{episode_x}</h1>'
     b = f'<img src="{IMAGES_URL}{episode_x.image.name}">'
     c = f'<p>{episode_x.description}</p>'

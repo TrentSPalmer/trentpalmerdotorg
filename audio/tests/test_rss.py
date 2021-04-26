@@ -7,7 +7,7 @@ from dateutil import parser
 from django.urls import reverse
 import xml.etree.ElementTree as ET
 from tp.settings import IMAGES_URL, MP3_URL
-from .string_test_string import get_ep_a_description
+from .string_test_string import get_ep_description
 
 
 class TestRssTestCase(TestCase):
@@ -84,7 +84,7 @@ class TestRssTestCase(TestCase):
             ep_desc = ep.find('description').text
             self.assertEquals(
                 ep_desc,
-                get_ep_a_description(feed_a, episode)
+                get_ep_description(feed_a, episode)
             )
             ep_pub_date = parser.parse(ep.find('pubDate').text).strftime('%Y-%m-%d')
             self.assertEquals(ep_pub_date, str(episode.pub_date))
