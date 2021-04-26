@@ -11,6 +11,21 @@ class TestNewEpisodeViewTestCase(TestCase):
     def setUp(self):
         set_up()
 
+    def test_new_episode_view_get(self):
+        feed_a = Feed.objects.get(title="Short Stories Mark Twain")
+        self.client.login(username='user_b', password='password_user_b')
+        kw_args = {'feed_pk': feed_a.pk, 'feed_title_slug': feed_a.slug}
+        response = self.client.get(reverse('audio:new_episode', kwargs=kw_args))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'base_form.html')
+        self.assertFalse(Episode.objects.filter(
+            title="Mark Twain Taming The Bicycle",
+        ).exists())
+        self.assertEquals(
+            response.request['PATH_INFO'],
+            f'/new-episode/{feed_a.pk}/{feed_a.slug}'
+        )
+
     def test_new_episode_view_wrong_user(self):
         feed_a = Feed.objects.get(title="Short Stories Mark Twain")
         self.client.login(username='user_a', password='password_user_a')
@@ -37,7 +52,8 @@ class TestNewEpisodeViewTestCase(TestCase):
             }, follow=True)
         self.assertEquals(response.status_code, 200)
         self.assertFalse(Episode.objects.filter(
-            title="Mark Twain Taming The Bicycle").exists())
+            title="Mark Twain Taming The Bicycle",
+        ).exists())
         self.assertEquals(response.request['PATH_INFO'], '/')
         self.assertTemplateUsed(response, 'audio/index.html')
 
