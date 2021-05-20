@@ -20,4 +20,5 @@ urlpatterns = [
     path('rss/<str:slug>.xml', AudioRssFeed(), name='rss'),
     path('feed/<str:pk>/<str:slug>', views.feed, name='feed'),
     path('episode/<str:pk>/<str:slug>', views.episode, name='episode'),
+    path('feed-list-api/', views.feed_list_api, name='feed_list_api')
 ]

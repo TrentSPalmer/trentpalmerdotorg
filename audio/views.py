@@ -1,4 +1,5 @@
 from django.shortcuts import render, reverse
+from django.http import JsonResponse
 from django.contrib.sites.shortcuts import get_current_site
 from .models import Feed, Episode
 from tp.settings import IMAGES_URL, MP3_URL
@@ -46,3 +47,15 @@ def feeds(request):
         request,
         'audio/feeds.html',
         {'feeds': feeds, 'IMAGES_URL': IMAGES_URL})
+
+
+def feed_list_api(request):
+    feeds = Feed.objects.all().order_by('created_on')
+    result = []
+    for feed in feeds:
+        result.append({
+            'title': feed.title,
+            'read_by': feed.user.username,
+            'rss_feed': f'{get_current_site(request)}' + reverse('audio:rss', kwargs={'slug': feed.slug})
+        })
+    return JsonResponse(result, safe=False)
