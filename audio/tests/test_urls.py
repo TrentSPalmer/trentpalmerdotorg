@@ -51,7 +51,7 @@ class TestFeedViewsUrls(SimpleTestCase):
 class TestNumUrls(SimpleTestCase):
 
     def test_num_urls(self):
-        self.assertEquals(len(urlpatterns), 11)
+        self.assertEquals(len(urlpatterns), 12)
 
 
 class TestViewsUrls(SimpleTestCase):
