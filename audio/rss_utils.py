@@ -18,7 +18,7 @@ def get_rss_item_desc(item):
     if item.image_attribution_url == '':
         i = f'{item.image_attribution}'
     else:
-        i = f'<a href="{item.image_attribution_url}">{item.feed.image_attribution}</a>'
+        i = f'<a href="{item.image_attribution_url}">{item.image_attribution}</a>'
     j = f' is licensed <a href="{item.image_license_url}">{item.image_license_name}</a>'
     k = f' {item.image_license_jurisdiction}.</p>'
 
