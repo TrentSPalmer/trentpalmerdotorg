@@ -5,7 +5,7 @@ from django.utils.feedgenerator import Rss201rev2Feed
 from tp.settings import IMAGES_URL, MP3_URL
 from .models import Feed
 from datetime import datetime
-from .rss_utils import get_rss_item_desc
+from .rss_utils import get_rss_item_desc, get_feed_image_desc
 
 
 class AudioRssFeedGenerator(Rss201rev2Feed):
@@ -92,5 +92,5 @@ class AudioRssFeed(RSSFeed):
         x['image_url'] = f'{IMAGES_URL}{obj.image.name}'
         x['image_title'] = obj.title
         x['image_link'] = f'{get_current_site(obj.request)}{self.link(obj)}'
-        x['image_desc'] = f'Image for: {obj.title}'
+        x['image_desc'] = get_feed_image_desc(obj)
         return x

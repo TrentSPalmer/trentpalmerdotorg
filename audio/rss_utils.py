@@ -1,6 +1,17 @@
 from tp.settings import IMAGES_URL
 
 
+def get_feed_image_desc(feed):
+    d = f'<p>Photo <a href="{feed.original_image_url}">{feed.image_title}</a> by '
+    if feed.image_attribution_url == '':
+        e = f'{feed.image_attribution}'
+    else:
+        e = f'<a href="{feed.image_attribution_url}">{feed.image_attribution}</a>'
+    f = f' is licensed <a href="{feed.image_license_url}">{feed.image_license_name}</a>'
+    g = f' {feed.image_license_jurisdiction}.</p>'
+    return f'{d}{e}{f}{g}'
+
+
 def get_rss_item_desc(item):
     a = f'<h1>{item}</h1>'
     b = f'<img src="{IMAGES_URL}{item.image.name}">'
