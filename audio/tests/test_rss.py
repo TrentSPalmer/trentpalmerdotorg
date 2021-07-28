@@ -64,7 +64,7 @@ class TestRssTestCase(TestCase):
         )
         f_image_description = f_image.find('description').text
         self.assertEquals(
-            f_image_description, 'Image for: Caesar-Pompey Civil War'
+            f_image_description, '<p>Photo <a href="https://commons.wikimedia.org/wiki/File:Ordinary_bicycle01.jpg">A Penny Farthing</a> by <a href="https://commons.wikimedia.org/wiki/User:Nova">Agnieszka Kwiecień</a> is licensed <a href="https://en.wikipedia.org/wiki/Public_domain">Public Domain</a> in the USA.</p>'
         )
         episodes = [t for t in channel.findall('item')]
         for i, ep in enumerate(episodes):
