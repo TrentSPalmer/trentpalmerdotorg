@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 from accounts.models import Account
 from django.urls import reverse
 from bs4 import BeautifulSoup
-import cv2
 from cairosvg import svg2png
 from PIL import Image
+from pyzbar.pyzbar import decode
 import pyotp
 import pathlib
 
@@ -77,10 +77,10 @@ class TestEnableTOTPViewTestCase(TestCase):
         background = Image.new("RGB", t_image.size, (255, 255, 255))
         background.paste(t_image, mask=t_image.split()[3])
         background.save('qr.jpg', "JPEG", quality=100)
-        image = cv2.imread('qr.jpg')
-        qr_det = cv2.QRCodeDetector()
-        qrdata = qr_det.detectAndDecode(image)
-        totp_code = pyotp.TOTP(pyotp.parse_uri(qrdata[0]).secret).now()
+        image = Image.open('qr.jpg')
+        img_data = decode(image)
+        qr_data = img_data[0].data.decode("utf-8")
+        totp_code = pyotp.TOTP(pyotp.parse_uri(qr_data).secret).now()
         response = self.client.post(reverse('accounts:enable_totp'), {
             'totp_code': totp_code}, follow=True)
         self.assertEquals(response.status_code, 200)
@@ -88,7 +88,7 @@ class TestEnableTOTPViewTestCase(TestCase):
         self.assertEquals(response.request['PATH_INFO'], '/accounts/edit-profile/')
         user_a = User.objects.get(username='user_a')
         self.assertTrue(user_a.account.use_totp)
-        self.assertEquals(len(user_a.account.totp_key), 16)
+        self.assertEquals(len(user_a.account.totp_key), 32)
         pathlib.Path('qr.svg').unlink()
         pathlib.Path('qr.png').unlink()
         pathlib.Path('qr.jpg').unlink()
