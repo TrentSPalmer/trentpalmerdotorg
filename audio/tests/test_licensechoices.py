@@ -18,14 +18,15 @@ TEST_LICENSE_INFO = (
     ('CC BY-SA 3.0', 'https://creativecommons.org/licenses/by-sa/3.0'),
     ('CC BY 3.0', 'https://creativecommons.org/licenses/by/3.0'),
     ('CC BY 1.0', 'https://creativecommons.org/licenses/by/1.0'),
-    ('CC0 1.0', 'https://creativecommons.org/publicdomain/zero/1.0')
+    ('CC0 1.0', 'https://creativecommons.org/publicdomain/zero/1.0'),
+    ('CC BY 4.0', 'https://creativecommons.org/licenses/by/4.0')
 )
 
 
 class LicenseChoicesTestCase(SimpleTestCase):
 
     def test_license_choices(self):
-        self.assertEqual(len(LICENSE_CHOICES), 7)
+        self.assertEqual(len(LICENSE_CHOICES), 8)
         for i, x in enumerate(TEST_LICENSE_CHOICES):
             self.assertEqual(TEST_LICENSE_CHOICES[i], LICENSE_CHOICES[i])
 
