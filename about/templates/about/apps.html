@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% include "base_navbar.html" %}
+  {% include "base_heading.html" %}
+  <div id="main">
+    <div class="row w-100 mx-0">
+    <div class="col-0 col-sm-3">
+    </div>
+    <div class="col-12 col-sm-6 px-2 mx-0">
+      <h2 class="text-center">Native Android Application</h2>
+      <p class="text-justify">
+        <a href="https://play.google.com/store/apps/details?id=org.trentpalmer.trentreads" target="_blank" rel="noopener noreferrer">
+        You can consume and listen to the audiobooks now using my new native Android Application, Trent Reads.
+        </a>
+      </p>
+      <h2 class="text-center">Podcast Applications</h2>
+      <p class="text-justify">
+      You can also subscribe to each AudioBook individually as a podcast feed using a podcast client.
+      Copy and paste the link for the associated feed into a podcast client.
+      </p>
+    </div>
+    <div class="col-0 col-sm-3">
+    </div>
+    </div>
+  </div>
+{% endblock content %}

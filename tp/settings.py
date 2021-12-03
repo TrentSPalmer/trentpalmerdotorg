@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'audio.apps.AudioConfig',
     'accounts.apps.AccountsConfig',
+    'about.apps.AboutConfig',
     'storages',
 ]
 

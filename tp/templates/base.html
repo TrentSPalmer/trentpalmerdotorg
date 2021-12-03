@@ -16,6 +16,7 @@
       {% url 'audio:new_feed' as new_feed_url %}
       {% url 'audio:feeds' as feeds_url %}
       {% url 'accounts:register' as register_url %}
+      {% url 'about:apps' as apps_url %}
 
       {% if request.path == home_url %}
         Home 
@@ -37,6 +38,8 @@
         Feeds 
       {% elif request.path == register_url %}
         Register
+      {% elif request.path == apps_url %}
+        Applications 
       {% endif %}
 
       {{ title }}

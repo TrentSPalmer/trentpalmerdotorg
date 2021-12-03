@@ -34,8 +34,9 @@ def episode(request, pk, slug):
     return render(
         request, 'audio/index.html',
         {
-            'episodes': (episode, ), 'IMAGES_URL': IMAGES_URL, 'is_episode': True,
-            'MP3_URL': MP3_URL, 'title': episode.title, 'heading': episode.title,
+            'episodes': (episode, ), 'IMAGES_URL': IMAGES_URL,
+            'is_episode': True, 'MP3_URL': MP3_URL,
+            'title': episode.title, 'heading': episode.title,
             'ogtitle': episode.title, 'ogurl': og_url, 'ogmp3': episode.mp3,
             'feed': episode.feed, 'twitter_image': episode.image,
         })
@@ -53,9 +54,10 @@ def feed_list_api(request):
     feeds = Feed.objects.all().order_by('created_on')
     result = []
     for feed in feeds:
+        x = reverse('audio:rss', kwargs={'slug': feed.slug})
         result.append({
             'title': feed.title,
             'read_by': feed.user.username,
-            'rss_feed': f'{get_current_site(request)}' + reverse('audio:rss', kwargs={'slug': feed.slug})
+            'rss_feed': f'{get_current_site(request)}' + x
         })
     return JsonResponse(result, safe=False)

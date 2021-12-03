@@ -47,7 +47,8 @@
                       <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:feed' pk=j.feed.id slug=j.feed.slug %}">Feed</a></p>
                       <p class="mb-1"><a type="button" class="btn btn-dark" href="#x{{ j.slug }}-rss" data-toggle="collapse">Pod</a></p>
                     {% else %}
-                      <p class="mb-1"><a type="button" class="btn btn-dark" href="#x{{ j.slug }}-rss" data-toggle="collapse">PodCast</a></p>
+                    <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'about:apps' %}">Apps</a></p>
+                      <p class="mb-1"><a type="button" class="btn btn-dark" href="#x{{ j.slug }}-rss" data-toggle="collapse">Pod</a></p>
                     {% endif %}
                   </div>
                     <a href="#x{{ j.slug }}-attributions" data-toggle="collapse" class="text-center text-dark" style="text-decoration: underline">license/attribution</a>

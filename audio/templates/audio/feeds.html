@@ -23,7 +23,8 @@
                     <p class="text-center mb-2 mt-3">{{ i.created_on }}</p>
                     <div class="d-flex flex-row justify-content-around align-items-center">
                       <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'audio:feed' pk=i.pk slug=i.slug %}">Items</a></p>
-                      <p class="mb-1"><a type="button" class="btn btn-dark" href="#x{{ i.slug }}-rss" data-toggle="collapse">PodCast</a></p>
+                      <p class="mb-1"><a type="button" class="btn btn-dark" href="{% url 'about:apps' %}">Apps</a></p>
+                      <p class="mb-1"><a type="button" class="btn btn-dark" href="#x{{ i.slug }}-rss" data-toggle="collapse">Pod</a></p>
                     </div>
                     <a href="#x{{ i.slug }}-attributions" data-toggle="collapse" class="text-center text-dark" style="text-decoration: underline">license/attribution</a>
                 </div>
