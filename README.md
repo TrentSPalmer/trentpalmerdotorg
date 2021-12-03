@@ -5,6 +5,14 @@ or audiobooks serialized as podcasts.
 Inspired by [David Collins-Rivera](https://hackerpublicradio.org/eps.php?id=1933),
 who serializes his audiobooks as [podcasts](https://stardrifter.podbean.com/).
 
+# Native Android Application
+You can now listen using my new Android Application
+[Trent Reads](https://play.google.com/store/apps/details?id=org.trentpalmer.trentreads).
+
+You can find the
+[Source code for Trent Reads](https://github.com/TrentSPalmer/trentreads),
+which is built with [Flutter](https://flutter.dev/).
+
 # Listening
 Using a podcast client is strongly encouraged because of the obvious limitations
 of trying to listen in the web browser. Although I do at some point intend to include
