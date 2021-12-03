@@ -24,8 +24,8 @@ delightful to work with once you get the hang of it.
 I record to [Audacity](https://www.audacityteam.org/) on a refurbished
 [Dell Optiplex 3010](https://www.amazon.com/Dell-3010-Performance-Certified-Refurbished/dp/B07C3H4KSX/0),
 which has an [Ivy Bridge](https://en.wikipedia.org/wiki/Ivy_Bridge_(microarchitecture))
-Core i5 cpu, running [Gentoo Linux](https://www.gentoo.org/), 
-with the [XFCE Desktop Environment](https://www.xfce.org/), using a
+Core i5 cpu, running [Debian 11 Bullseye](https://www.debian.org/intro/why_debian), 
+with the [Mate Desktop Environment](https://mate-desktop.org/), using a
 [Samson Meteor](https://www.amazon.com/Samson-Meteor-Studio-Condenser-Microphone/dp/B004MF39YS)
 usb condensor microphone.
 
