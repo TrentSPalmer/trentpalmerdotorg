@@ -29,6 +29,7 @@ def feed(request, pk, slug):
 
 def episode(request, pk, slug):
     episode = Episode.objects.get(id=pk)
+    episode.p_date = episode.pub_date.strftime('%Y-%m-%dT%H:%M:%SZ')
     ogurl = reverse('audio:episode', kwargs={'pk': pk, 'slug': slug})
     og_url = f'{get_current_site(request)}{ogurl}'
     return render(

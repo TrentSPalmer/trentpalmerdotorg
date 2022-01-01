@@ -1,14 +1,27 @@
 {% extends "base.html" %}
 {% block morehead %}
   {% if is_episode %}
-    <meta property="twitter:card" content="summary" />
-    <meta property="twitter:creator" content="{{ user.account.twitter_handle }}" />
-    <meta property="twitter:image" content="{{ IMAGES_URL }}{{ twitter_image }}" />
+    <meta property="og:site_name" content="TrentReads" />
     <meta property="og:title" content="{{ ogtitle }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="{{ episodes.0.description }}" />
     <meta property="og:url" content="{{ ogurl }}" />
+    <meta property="og:image" content="{{ IMAGES_URL }}{{ twitter_image }}" />
     <meta property="og:audio" content="{{ MP3_URL }}{{ ogmp3 }}" />
     <meta property="og:audio:secure" content="{{ MP3_URL }}{{ ogmp3 }}" />
     <meta property="og:audio:type" content="audio/mpeg" />
+    <meta property="article:published_time" content="{{ episodes.0.p_date }}" />
+    <meta property="article:modified_time" content="{{ episodes.0.p_date }}" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{ ogtitle }}" />
+    <meta name="twitter:description" content="{{ episodes.0.description }}" />
+    <meta name="twitter:url" content="{{ ogurl }}" />
+    <meta name="twitter:label1" content="Recorded by" />
+    <meta name="twitter:data1" content="{{ episodes.0.user.first_name }} {{ episodes.0.user.last_name }}" />
+    <meta name="twitter:site" content="@BoringTrent" />
+    <meta name="twitter:creator" content="{{ episodes.0.user.account.twitter_handle }}" />
+    <meta name="twitter:image" content="{{ IMAGES_URL }}{{ twitter_image }}" />
   {% endif %}
 {% endblock morehead %}
 
