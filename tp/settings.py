@@ -4,23 +4,13 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if str(os.getenv('DEBUG')) == "True" else False
 
 ALLOWED_HOSTS = [x for x in os.environ.get('ALLOWED_HOSTS').split(' ')]
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -34,7 +24,6 @@ INSTALLED_APPS = [
     'audio.apps.AudioConfig',
     'accounts.apps.AccountsConfig',
     'about.apps.AboutConfig',
-    'storages',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +47,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -76,9 +66,6 @@ LOGGING_XMPP_CONFIG = {
     'LOGGING_XMPP_USE_TLS': str(os.getenv('LOGGING_XMPP_USE_TLS'))
 }
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -87,10 +74,6 @@ DATABASES = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-
-# Password validation
-# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -107,10 +90,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/Los_Angeles'
@@ -121,34 +100,17 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATIC_DOMAIN = os.getenv("STATIC_DOMAIN")
+MP3_ROOT = os.path.join(BASE_DIR, 'media/audio/mp3')
+IMAGE_ROOT = os.path.join(BASE_DIR, 'media/audio/images')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/audio')
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-# STATIC_URL = '/static/'
-
-# aws settings
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_ENDPOINT_URL = os.getenv('AWS_S3_ENDPOINT_URL')
-AWS_DEFAULT_ACL = None
-# AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_S3_CUSTOM_DOMAIN = os.getenv('AWS_S3_CUSTOM_DOMAIN')
-AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
-# s3 static settings
-STATIC_LOCATION = 'static'
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-STATICFILES_STORAGE = 'tp.storage_backends.StaticStorage'
-# s3 public media settings
-PUBLIC_MP3_LOCATION = 'mp3'
-MP3_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MP3_LOCATION}/'
-MP3_FILE_STORAGE = 'tp.storage_backends.PublicMP3Storage'
-PUBLIC_IMAGES_LOCATION = 'images'
-IMAGES_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_IMAGES_LOCATION}/'
-IMAGES_FILE_STORAGE = 'tp.storage_backends.PublicImageStorage'
-
+STATIC_URL = f"{STATIC_DOMAIN}/static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+MEDIA_URL = f"{STATIC_DOMAIN}/audio/"
+IMAGES_URL = f"{MEDIA_URL}images/"
+MP3_URL = f"{MEDIA_URL}mp3/"
+
 LOGGING = init_logging_settings()
 
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')

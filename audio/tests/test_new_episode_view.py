@@ -131,7 +131,6 @@ class TestNewEpisodeViewTestCase(TestCase):
         self.assertEquals(str(episode_a.pub_date), pub_date)
         self.assertEquals(episode_a.episode_number, 3)
         self.assertEquals(episode_a.description, 'learn how to ride a bicycle')
-        self.assertEquals(episode_a.mp3, 'mark-twain-taming-the-bicycle.mp3')
         self.assertEquals(episode_a.image_title, 'A Penny Farthing')
         self.assertEquals(episode_a.image_attribution, 'Agnieszka Kwiecień')
         self.assertEquals(
@@ -143,7 +142,6 @@ class TestNewEpisodeViewTestCase(TestCase):
         )
         self.assertEquals(episode_a.image_license, 1)
         self.assertEquals(episode_a.image_license_jurisdiction, 'in the USA')
-        self.assertEquals(episode_a.image, 'bicycle.jpg')
         self.assertEquals(episode_a.image_license_name, 'Public Domain')
         self.assertEquals(
             episode_a.image_license_url, 'https://en.wikipedia.org/wiki/Public_domain'

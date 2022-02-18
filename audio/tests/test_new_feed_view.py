@@ -115,7 +115,6 @@ class TestNewFeedViewTestCase(TestCase):
         self.assertEquals(feed_a.original_image_url, "https://commons.wikimedia.org/wiki/File:Ordinary_bicycle01.jpg")
         self.assertEquals(feed_a.image_license, 1)
         self.assertEquals(feed_a.image_license_jurisdiction, "in the USA")
-        self.assertEquals(feed_a.image, 'bicycle.jpg')
         self.assertEquals(feed_a.image_license_url, "https://en.wikipedia.org/wiki/Public_domain")
         self.assertEquals(feed_a.image_license_name, 'Public Domain')
         self.assertEquals(feed_a.license_url, "https://en.wikipedia.org/wiki/Public_domain")

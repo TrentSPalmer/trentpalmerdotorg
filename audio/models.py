@@ -3,9 +3,10 @@ from django.conf import settings
 from tp.models import UUIDAsIDModel
 from django.contrib.auth.models import User
 from django.utils.text import slugify
-from tp.storage_backends import PublicImageStorage, PublicMP3Storage
+from django.core.files.storage import FileSystemStorage
 from .choices import LICENSE_CHOICES, get_license_info
-import string, random
+import string
+import random
 
 
 def rand_slug():
@@ -15,7 +16,7 @@ def rand_slug():
 def slugify_file_name(instance, filename):
     fname, dot, extension = filename.rpartition('.')
     slug = slugify(fname)
-    return f'{slug}.{extension}'
+    return f"{slug}.{extension}"
 
 
 class EpisodeAndFeed(UUIDAsIDModel):
@@ -27,7 +28,7 @@ class EpisodeAndFeed(UUIDAsIDModel):
     description = models.TextField(null=False)
 
     image = models.ImageField(
-        storage=PublicImageStorage(),
+        storage=FileSystemStorage(location=settings.IMAGE_ROOT),
         upload_to=slugify_file_name,
         null=True, blank=True)
 
@@ -95,6 +96,6 @@ class Episode(EpisodeAndFeed):
     episode_number = models.IntegerField(null=True)
 
     mp3 = models.FileField(
-        storage=PublicMP3Storage(),
+        storage=FileSystemStorage(location=settings.MP3_ROOT),
         upload_to=slugify_file_name,
         null=True, blank=True)

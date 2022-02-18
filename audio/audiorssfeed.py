@@ -49,7 +49,7 @@ class AudioRssFeed(RSSFeed):
         return f'{MP3_URL}{item.mp3}'
 
     def item_enclosure_length(self, item):
-        return item.image.size
+        return(item.mp3.size)
 
     def item_enclosure_mime_type(self, item):
         return "audio/mpeg"
