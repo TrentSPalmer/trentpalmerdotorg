@@ -98,7 +98,7 @@ class TestRssTestCase(TestCase):
                 ep_guid, f"http://testserver/episode/{episode.pk}/{episode.slug}"
             )
             ep_enclosure = ep.find("enclosure")
-            self.assertEquals(ep_enclosure.keys(), ["length", "type", "url"])
+            self.assertEquals(list(ep_enclosure.keys()), ["length", "type", "url"])
             self.assertEquals(ep_enclosure.attrib["length"], str(episode.mp3.size))
             self.assertEquals(ep_enclosure.attrib["type"], "audio/mpeg")
             self.assertEquals(ep_enclosure.attrib["url"], f"{MP3_URL}{episode.mp3}")
